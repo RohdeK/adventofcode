@@ -4,8 +4,8 @@ from puzzles.day_4.input_part_1 import get_input
 from puzzles.day_4.solution_part_1 import BingoBoard
 
 
-def determine_losing_board(boards: List[BingoBoard], number_draws: List[int]) -> BingoBoard:
-    for number in number_draws:
+def determine_losing_board(boards: List[BingoBoard], draws: List[int]) -> BingoBoard:
+    for number in draws:
         for board in tuple(boards):
             board.cross_number(number)
 

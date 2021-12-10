@@ -1,5 +1,5 @@
 from functools import reduce
-from typing import Generic, List, Set, Tuple, TypeVar
+from typing import Generic, List, Tuple, TypeVar
 
 from puzzles.day_9.input_part_1 import get_input
 
@@ -40,16 +40,16 @@ def find_basins(input_values: List[List[int]]) -> List[List[Tuple[int, int]]]:
 
             if j > 0 and row[j - 1] <= val:
                 # Left value is smaller
-                basins.set_equal((i, j), (i, j-1))
+                basins.set_equal((i, j), (i, j - 1))
             if j < len(row) - 1 and row[j + 1] <= val:
                 # Right value is smaller
-                basins.set_equal((i, j), (i, j+1))
+                basins.set_equal((i, j), (i, j + 1))
             if i > 0 and input_values[i - 1][j] <= val:
                 # Top value is smaller
-                basins.set_equal((i, j), (i-1, j))
+                basins.set_equal((i, j), (i - 1, j))
             if i < len(input_values) - 1 and input_values[i + 1][j] <= val:
                 # Bottom value is smaller
-                basins.set_equal((i, j), (i+1, j))
+                basins.set_equal((i, j), (i + 1, j))
 
     return basins.classes
 

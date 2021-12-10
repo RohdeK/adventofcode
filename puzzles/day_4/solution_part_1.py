@@ -33,8 +33,8 @@ class BingoBoard:
         return sum(self._all_numbers) * self._last_number
 
 
-def determine_winning_board(boards: List[BingoBoard], number_draws: List[int]) -> BingoBoard:
-    for number in number_draws:
+def determine_winning_board(boards: List[BingoBoard], draws: List[int]) -> BingoBoard:
+    for number in draws:
         for board in boards:
             board.cross_number(number)
 
