@@ -52,8 +52,7 @@ class PathFinder:
 
         return viable_targets
 
-    @staticmethod
-    def _is_viable_pathing(node: str, path: List[str]) -> bool:
+    def _is_viable_pathing(self, node: str, path: List[str]) -> bool:
         if node == "start":
             # Don't allow visiting start again
             return False
@@ -63,32 +62,39 @@ class PathFinder:
             return False
 
         if node == node.lower():
-            # Don't allow revisiting a small cave
-            return node not in path
+            return self._is_viable_small_cave_rule(node, path)
 
         return True
 
     @staticmethod
-    def _post_validate_paths(paths) -> None:
+    def _is_viable_small_cave_rule(node: str, path: List[str]) -> bool:
+        # Don't allow revisiting a small cave
+        return node not in path
+
+    def _post_validate_paths(self, paths) -> None:
         path_reps: List[str] = []
 
         for path in paths:
-            # Starts in start
-            assert path[0] == "start"
+            # Starts in start and doesn't visit it again
+            assert path[0] == "start" and path.count("start") == 1
 
-            # Ends in end
-            assert path[-1] == "end"
-
-            # Doesnt visit any lowercase multiple times (also handles start and end being visited only once)
-            assert all(path.count(node) == 1 for node in path if node.lower() == node)
+            # Ends in end and doesn't visit it before
+            assert path[-1] == "end" and path.count("end") == 1
 
             # Always moves to another node
             assert all(path[i] != path[i + 1] for i in range(len(path) - 1))
+
+            self._post_validate_small_cave_rule(path)
 
             path_reps.append("-".join(path))
 
         # Didn't count a path twice
         assert len(set(path_reps)) == len(path_reps)
+
+    @staticmethod
+    def _post_validate_small_cave_rule(path: List[str]) -> None:
+        # Doesnt visit any lowercase multiple times (also handles start and end being visited only once)
+        assert all(path.count(node) == 1 for node in path if node.lower() == node)
 
 
 def count_all_paths(input_values: List[str]) -> int:
