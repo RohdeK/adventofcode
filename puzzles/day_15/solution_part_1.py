@@ -1,6 +1,4 @@
 import math
-import random
-import re
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
@@ -15,16 +13,16 @@ class WeightedGraph:
             for col_index, value in enumerate(row)
         }
         self._width = len(input_values[0])
-        self._heigth = len(input_values)
+        self._height = len(input_values)
         self._node_distances: Dict[Tuple[int, int], float] = defaultdict(lambda: math.inf)
         self._node_distances[(0, 0)] = 0
 
     def measure_entire_distance(self) -> int:
         for i in range(self._width):
-            for j in range(self._heigth):
+            for j in range(self._height):
                 self.measure_from_node((i, j))
 
-        return int(self._node_distances[(self._width - 1, self._heigth - 1)])
+        return int(self._node_distances[(self._width - 1, self._height - 1)])
 
     def measure_from_node(self, node: Tuple[int, int]) -> None:
         this_node_distance = self._node_distances[node]
