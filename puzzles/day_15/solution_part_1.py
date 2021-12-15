@@ -18,20 +18,39 @@ class WeightedGraph:
         self._node_distances[(0, 0)] = 0
 
     def measure_entire_distance(self) -> int:
-        for i in range(self._width):
-            for j in range(self._height):
-                self.measure_from_node((i, j))
+        i = 0
+
+        while i < self._width:
+            j = 0
+
+            while j < self._height:
+                back_optimization = self.measure_from_node((i, j))
+
+                if back_optimization:
+                    # Return back some steps to do re-evaluation.
+                    i = max(0, i - 2)
+                    break
+
+                j += 1
+
+            i += 1
 
         return int(self._node_distances[(self._width - 1, self._height - 1)])
 
-    def measure_from_node(self, node: Tuple[int, int]) -> None:
+    def measure_from_node(self, node: Tuple[int, int]) -> bool:
         this_node_distance = self._node_distances[node]
         assert this_node_distance is not math.inf
 
         self.measure_neighbor_node(this_node_distance, (node[0] + 1, node[1]))
         self.measure_neighbor_node(this_node_distance, (node[0], node[1] + 1))
 
-    def measure_neighbor_node(self, node_distance: float, neighbor: Tuple[int, int]) -> None:
+        # Check back direction if a path updated.
+        back_opt_1 = self.measure_neighbor_node(this_node_distance, (node[0] - 1, node[1]))
+        back_opt_2 = self.measure_neighbor_node(this_node_distance, (node[0], node[1] - 1))
+
+        return back_opt_1 or back_opt_2
+
+    def measure_neighbor_node(self, node_distance: float, neighbor: Tuple[int, int]) -> bool:
         try:
             value_of_neighbor = self._node_values[neighbor]
         except KeyError:
@@ -41,6 +60,10 @@ class WeightedGraph:
 
             if distance_of_neighbor < self._node_distances[neighbor]:
                 self._node_distances[neighbor] = distance_of_neighbor
+
+                return True
+
+        return False
 
 
 def shortest_path_length(input_values: List[List[int]]) -> int:
