@@ -88,13 +88,6 @@ class BITS:
         # Including header
         total_content_bit_length += self.type_bit_size + self.version_bit_size
 
-        # expected_hex_rep_leftover_bits = total_content_bit_length % 4
-        #
-        # if expected_hex_rep_leftover_bits > 0:
-        #     expected_hex_rep_leftover_bits = 4 - expected_hex_rep_leftover_bits
-        #
-        # content_end_position = starting_pos + expected_hex_rep_leftover_bits
-
         return literal_number_content, total_content_bit_length
 
     def _find_sub_packages(self) -> Tuple[List["BITS"], int]:
