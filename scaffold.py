@@ -64,4 +64,4 @@ def test_example():
 
 
 if __name__ == '__main__':
-    scaffold_day(16)
+    scaffold_day(17)
