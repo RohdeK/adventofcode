@@ -105,8 +105,8 @@ raw_input = """
 """
 
 
-SnailNumber = Union[List[int], List["SnailNumber"]]
+SnailNumberListRep = Union[List[int], List["SnailNumberListRep"]]
 
 
-def get_input() -> List[SnailNumber]:
+def get_input() -> List[SnailNumberListRep]:
     return [ast.literal_eval(val) for val in raw_input.split("\n")[1:-1]]

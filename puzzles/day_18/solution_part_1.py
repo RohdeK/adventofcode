@@ -1,178 +1,246 @@
-from functools import reduce
-from typing import Iterator, List, Tuple
+from typing import Iterator, List, Optional, Tuple, Union
 
-from puzzles.day_18.input_part_1 import SnailNumber, get_input
-
-
-def calculate_magnitude(number: SnailNumber) -> int:
-    first_part, second_part = number
-
-    if isinstance(first_part, int):
-        first_part_magnitude = first_part
-    else:
-        first_part_magnitude = calculate_magnitude(first_part)
-
-    if isinstance(second_part, int):
-        second_part_magnitude = second_part
-    else:
-        second_part_magnitude = calculate_magnitude(second_part)
-
-    return 3 * first_part_magnitude + 2 * second_part_magnitude
+from puzzles.day_18.input_part_1 import get_input, SnailNumberListRep
 
 
-def add_snail_numbers(number_1: SnailNumber, number_2: SnailNumber) -> SnailNumber:
-    print("Adding", number_1, number_2)
-    intermediate_number: SnailNumber = [number_1, number_2]
+class SnailNumber:
+    def __init__(self, first: Union[int, "SnailNumber"], second: Union[int, "SnailNumber"]):
+        self.first = first
+        self.second = second
 
-    return breakdown(intermediate_number)
+        self.parent: Optional["SnailNumber"] = None
 
+        if not self.first_is_int():
+            self.first.parent = self
 
-def breakdown(number: SnailNumber) -> SnailNumber:
-    while True:
-        number, work_done = breakdown_explode(number)
+        if not self.second_is_int():
+            self.second.parent = self
 
-        if work_done:
-            continue
+    def first_is_int(self) -> bool:
+        return isinstance(self.first, int)
 
-        number, work_done = breakdown_split(number)
+    def second_is_int(self) -> bool:
+        return isinstance(self.second, int)
 
-        if work_done:
-            continue
+    def magnitude(self) -> int:
+        if isinstance(self.first, int):
+            first_part_magnitude = self.first
+        else:
+            first_part_magnitude = self.first.magnitude()
 
-        print("Done breaking down.")
+        if isinstance(self.second, int):
+            second_part_magnitude = self.second
+        else:
+            second_part_magnitude = self.second.magnitude()
 
-        break
+        return 3 * first_part_magnitude + 2 * second_part_magnitude
 
-    return number
+    def __add__(self, other: "SnailNumber") -> "SnailNumber":
+        sum_number = SnailNumber(first=self, second=other)
 
+        sum_number.breakdown()
 
-def add_value_to_rightmost_in_number(number: SnailNumber, add: int) -> None:
-    immediate_prev = None
+        return sum_number
 
-    for immediate_prev, _ in walk_numerals(number):
-        pass
+    def remove(self, child: "SnailNumber") -> None:
+        if self.first is child:
+            self.first = 0
+        elif self.second is child:
+            self.second = 0
+        else:
+            raise ValueError(f"Not a parent of {child}")
 
-    assert immediate_prev and isinstance(immediate_prev[1], int)
+    def walk_numerals(self, depth=0) -> Iterator[Tuple["SnailNumber", int]]:
+        if isinstance(self.first, int):
+            yield self, depth
+        else:
+            yield from self.first.walk_numerals(depth + 1)
 
-    immediate_prev[1] += add
+        if isinstance(self.second, int):
+            if not isinstance(self.first, int):
+                yield self, depth
+        else:
+            yield from self.second.walk_numerals(depth + 1)
 
+    def breakdown(self) -> None:
+        while True:
+            work_done = self.breakdown_explode()
 
-def add_value_to_leftmost_in_number(number: SnailNumber, add: int) -> None:
-    for immediate_next, _ in walk_numerals(number):
-        immediate_next[0] += add
-        break
+            if work_done:
+                continue
 
+            work_done = self.breakdown_split()
 
-def breakdown_explode(number: SnailNumber) -> Tuple[SnailNumber, bool]:
-    print("Checking explode")
-    found_explode_value = False
-    previous_pair = None
-    current_pair = None
-    next_pair = None
+            if work_done:
+                continue
 
-    for iter_pair, depth in walk_numerals(number):
-        if current_pair is not None:
-            next_pair = iter_pair
             break
 
-        if depth == 4:
-            current_pair = iter_pair
+    def breakdown_split(self) -> bool:
+        found_split_value = False
 
-        if not current_pair:
-            previous_pair = iter_pair
+        for sub_number, _ in self.walk_numerals():
+            if isinstance(sub_number.first, int) and sub_number.first >= 10:
+                new_number = self.pair_split(sub_number.first)
+                sub_number.first = new_number
+                new_number.parent = sub_number
 
-    if current_pair:
-        print("Exploding on", current_pair)
-        found_explode_value = True
-        left_val, right_val = current_pair
+                found_split_value = True
+                break
+            elif isinstance(sub_number.second, int) and sub_number.second >= 10:
+                new_number = self.pair_split(sub_number.second)
+                sub_number.second = new_number
+                new_number.parent = sub_number
 
-        if previous_pair:
-            if current_pair == previous_pair[1]:
-                previous_pair[1] = 0
+                found_split_value = True
+                break
 
-                if isinstance(previous_pair[0], int):
-                    previous_pair[0] += left_val
-                else:
-                    add_value_to_rightmost_in_number(previous_pair[0], left_val)
-            elif next_pair == previous_pair[1]:
-                previous_pair[0] += left_val
+        return found_split_value
+
+    @staticmethod
+    def pair_split(value: int) -> "SnailNumber":
+        half = value // 2
+        return SnailNumber(first=half, second=value - half)
+
+    def breakdown_explode(self) -> bool:
+        found_explode_value = False
+
+        for iter_number, depth in self.walk_numerals():
+            if depth == 4:
+                iter_number.explode()
+
+                found_explode_value = True
+                break
+
+        return found_explode_value
+
+    def explode(self) -> None:
+        prev_numeral, on_left = self.previous_numeral()
+        if prev_numeral:
+            if on_left:
+                prev_numeral.first += self.first
             else:
-                add_value_to_rightmost_in_number(previous_pair, left_val)
+                prev_numeral.second += self.first
 
-        if next_pair:
-            if current_pair == next_pair[0]:
-                next_pair[0] = 0
-
-                if isinstance(next_pair[1], int):
-                    next_pair[1] += right_val
-                else:
-                    add_value_to_leftmost_in_number(next_pair[1], right_val)
-            elif previous_pair == next_pair[0]:
-                next_pair[1] += right_val
+        next_numeral, on_right = self.next_numeral()
+        if next_numeral:
+            if on_right:
+                next_numeral.second += self.second
             else:
-                add_value_to_leftmost_in_number(next_pair, right_val)
+                next_numeral.first += self.second
 
-    print("Done exploding", found_explode_value)
+        self.parent.remove(self)
 
-    return number, found_explode_value
+    def previous_numeral(self) -> Tuple[Optional["SnailNumber"], bool]:
+        if not self.parent:
+            return None, False
 
+        iter_node = self
 
-def breakdown_split(number: SnailNumber) -> Tuple[SnailNumber, bool]:
-    print("Checking split")
+        while True:
+            # Going up until I can move left
+            if not iter_node.parent:
+                return None, False
 
-    found_split_value = False
+            # Up the chain until this iteration node is the second one
+            if iter_node is iter_node.parent.second:
+                iter_node = iter_node.parent
+                break
 
-    for pair, _ in walk_numerals(number):
-        first_part = pair[0]
-        second_part = pair[1]
+            iter_node = iter_node.parent
 
-        if isinstance(first_part, int) and first_part > 10:
-            pair[0] = pair_split(first_part)
-            print("Split", first_part, pair[0])
-            found_split_value = True
+        # If left is already a number
+        if iter_node.first_is_int():
+            return iter_node, True
+
+        # Going left one step
+        iter_node = iter_node.first
+
+        while True:
+            # Going down the chain to the right until a node with int right is met.
+            if iter_node.second_is_int():
+                return iter_node, False
+
+            iter_node = iter_node.second
+
+    def next_numeral(self) -> Tuple[Optional["SnailNumber"], bool]:
+        if not self.parent:
+            return None, False
+
+        iter_node = self
+
+        while True:
+            # Going up until I can move right
+            if not iter_node.parent:
+                return None, False
+
+            # Up the chain until this iteration node is the first one
+            if iter_node is iter_node.parent.first:
+                iter_node = iter_node.parent
+                break
+
+            iter_node = iter_node.parent
+
+        # If right is already a number
+        if iter_node.second_is_int():
+            return iter_node, True
+
+        # Going right one step
+        iter_node = iter_node.second
+
+        while True:
+            # Going down the chain to the left until a node with int left is met.
+            if iter_node.first_is_int():
+                return iter_node, False
+
+            iter_node = iter_node.first
+
+    def add_value_to_rightmost(self, add: int) -> None:
+        immediate_prev = None
+
+        for immediate_prev, _ in self.walk_numerals():
+            pass
+
+        assert immediate_prev and isinstance(immediate_prev.second, int)
+
+        immediate_prev.second += add
+
+    def add_value_to_leftmost(self, add: int) -> None:
+        for immediate_next, _ in self.walk_numerals():
+
+            assert isinstance(immediate_next.first, int)
+
+            immediate_next.first += add
             break
-        elif isinstance(second_part, int) and second_part > 10:
-            pair[1] = pair_split(second_part)
-            print("Split", second_part, pair[1])
-            found_split_value = True
-            break
 
-    print("Done splitting", found_split_value)
+    @classmethod
+    def from_rep(cls, rep: SnailNumberListRep) -> "SnailNumber":
+        part_1_parsed = rep[0] if isinstance(rep[0], int) else SnailNumber.from_rep(rep[0])
+        part_2_parsed = rep[1] if isinstance(rep[1], int) else SnailNumber.from_rep(rep[1])
 
-    return number, found_split_value
+        parsed = SnailNumber(first=part_1_parsed, second=part_2_parsed)
 
+        return parsed
 
-def walk_numerals(number: SnailNumber, depth=0) -> Iterator[Tuple[SnailNumber, int]]:
-    part_1, part_2 = number
+    def to_rep(self) -> SnailNumberListRep:
+        first_rep = self.first if self.first_is_int() else self.first.to_rep()
+        second_rep = self.second if self.second_is_int() else self.second.to_rep()
 
-    if isinstance(part_1, int):
-        yield number, depth
-    else:
-        yield from walk_numerals(part_1, depth + 1)
+        return [first_rep, second_rep]
 
-    if isinstance(part_2, int):
-        if not isinstance(part_1, int):
-            yield number, depth
-    else:
-        yield from walk_numerals(part_2, depth + 1)
+    def __repr__(self) -> str:
+        return str(self.to_rep())
 
 
-def is_atomic(number: SnailNumber) -> bool:
-    return all(isinstance(val, int) for val in number)
+def calculate_solution(input_values: List[SnailNumberListRep]) -> int:
+    snail_numbers = [SnailNumber.from_rep(rep) for rep in input_values]
 
+    final_number = snail_numbers.pop(0)
 
-def pair_split(value: int) -> List[int]:
-    half = value // 2
-    return [half, value - half]
+    while snail_numbers:
+        final_number += snail_numbers.pop(0)
 
-
-def calculate_solution(input_values: List[SnailNumber]) -> int:
-    final_number = input_values.pop(0)
-
-    while input_values:
-        final_number = add_snail_numbers(final_number, input_values.pop(0))
-
-    return calculate_magnitude(final_number)
+    return final_number.magnitude()
 
 
 if __name__ == "__main__":
