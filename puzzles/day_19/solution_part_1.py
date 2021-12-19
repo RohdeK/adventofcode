@@ -41,8 +41,9 @@ class Beacon:
 
 
 class Scanner:
-    def __init__(self, beacons: List[Tuple[int, int, int]]):
+    def __init__(self, beacons: List[Tuple[int, int, int]], scanners: List[Beacon] = None):
         self.beacons = [Beacon(*coords) for coords in beacons]
+        self.scanners: List[Beacon] = scanners or [Beacon(0, 0, 0)]
         self.overlap_minimum = 12
 
         self._beacon_inter_distances: List[Tuple[int, Beacon, Beacon]] = []
@@ -147,6 +148,7 @@ class Scanner:
 
     def reorient(self, orientation_matrix: List[List[int]], shift: Beacon) -> None:
         self.beacons = [beacon.reorient(orientation_matrix) + shift for beacon in self.beacons]
+        self.scanners = [scanner.reorient(orientation_matrix) + shift for scanner in self.scanners]
 
         # Force recalculation
         self._beacon_inter_distances = []
@@ -157,7 +159,7 @@ class Scanner:
 
         merged_beacons = list(set(this_tuples + other_tuples))
 
-        return Scanner(merged_beacons)
+        return Scanner(merged_beacons, scanners=self.scanners + other.scanners)
 
 
 def merge_next(scanners: List[Scanner]) -> Optional[Tuple[Scanner, Scanner, Scanner]]:
@@ -180,7 +182,7 @@ def merge_next(scanners: List[Scanner]) -> Optional[Tuple[Scanner, Scanner, Scan
             return scanners[i], scanners[j], new_scanner
 
 
-def calculate_solution(input_values: List[List[Tuple[int, int, int]]]) -> int:
+def merge_until_done(input_values: List[List[Tuple[int, int, int]]]) -> Scanner:
     scanners = [Scanner(vals) for vals in input_values]
 
     while len(scanners) > 1:
@@ -196,7 +198,13 @@ def calculate_solution(input_values: List[List[Tuple[int, int, int]]]) -> int:
         scanners.remove(to_remove_2)
         scanners.insert(0, to_add)
 
-    return len(scanners[0].beacons)
+    return scanners[0]
+
+
+def calculate_solution(input_values: List[List[Tuple[int, int, int]]]) -> int:
+    final = merge_until_done(input_values)
+
+    return len(final.beacons)
 
 
 if __name__ == "__main__":

@@ -1,25 +1,4 @@
-from puzzles.day_19.solution_part_1 import Scanner, calculate_solution
-
-
-def test_finds_overlap():
-    test_input = [
-        [
-            (0, 2, 0),
-            (4, 1, 0),
-            (3, 3, 0),
-        ],
-        [
-            (-1, -1, 0),
-            (-5, 0, 0),
-            (-2, 1, 0),
-        ],
-    ]
-
-    scanners = [Scanner(vals) for vals in test_input]
-
-    cands = scanners[0].find_overlap_candidates(scanners[1])
-
-    assert scanners[1].validate_overlap_candidates(cands)
+from puzzles.day_19.solution_part_2 import calculate_solution
 
 
 def test_example():
@@ -165,4 +144,4 @@ def test_example():
 
     solution = calculate_solution(test_input)
 
-    assert solution == 79
+    assert solution == 3621
