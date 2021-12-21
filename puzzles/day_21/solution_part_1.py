@@ -26,7 +26,7 @@ class DeterministicDie(Die):
 class DiracGame:
     def __init__(self, starting_pos: List[int], max_board_num: int, die_used: Die, win_score: int):
         self.die = die_used
-        self.current_positions = starting_pos
+        self.current_positions = starting_pos.copy()
         self.scores = [0] * len(starting_pos)
         self.board_size = max_board_num
         self.win_score = win_score
@@ -46,7 +46,7 @@ class DiracGame:
             self.current_positions[player_index] = player_board_position
             self.scores[player_index] += player_board_position
 
-            if self.scores[player_index] >= 1000:
+            if self.scores[player_index] >= self.win_score:
                 return player_index
 
     def play_out(self) -> int:
