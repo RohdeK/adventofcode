@@ -13,8 +13,10 @@ def scaffold_day(day: int):
     (base_path / "solution_part_1.py").write_text(f"""
 from puzzles.day_{day:02d}.input_part_1 import get_input
 
+
 def calculate_solution(input_values) -> int:
     raise NotImplemented
+
 
 if __name__ == "__main__":
     print(calculate_solution(get_input()))
@@ -23,8 +25,10 @@ if __name__ == "__main__":
     (base_path / "solution_part_2.py").write_text(f"""
 from puzzles.day_{day:02d}.input_part_1 import get_input
 
+
 def calculate_solution(input_values) -> int:
     raise NotImplemented
+
 
 if __name__ == "__main__":
     print(calculate_solution(get_input()))
@@ -64,4 +68,4 @@ def test_example():
 
 
 if __name__ == '__main__':
-    scaffold_day(25)
+    scaffold_day(1)
