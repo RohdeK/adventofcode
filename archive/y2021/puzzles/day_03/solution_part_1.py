@@ -1,10 +1,10 @@
 from typing import List, Tuple
 from collections import Counter
 
-from archive.y2021.puzzles.day_03.input_part_1 import get_input
+from archive.y2021.puzzles.day_03.load_inputs import get_input, InputType
 
 
-def transpose_values(input_values: List[str]) -> List[List[str]]:
+def transpose_values(input_values: InputType) -> List[List[str]]:
     assumed_digit_length = len(input_values[0])
 
     transposed_values = [[input_values[i][j] for i in range(len(input_values))] for j in range(assumed_digit_length)]
@@ -12,7 +12,7 @@ def transpose_values(input_values: List[str]) -> List[List[str]]:
     return transposed_values
 
 
-def calculate_rates(input_values: List[str]) -> Tuple[int, int]:
+def calculate_rates(input_values: InputType) -> Tuple[int, int]:
     transposed_values = transpose_values(input_values)
 
     most_common = [Counter(digits).most_common(1)[0][0] for digits in transposed_values]

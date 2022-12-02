@@ -1,11 +1,10 @@
 from collections import Counter
-from typing import List
 
-from archive.y2021.puzzles.day_03.input_part_1 import get_input
+from archive.y2021.puzzles.day_03.load_inputs import get_input, InputType
 from archive.y2021.puzzles.day_03.solution_part_1 import transpose_values
 
 
-def calculate_oxygen_rate(input_values: List[str]) -> int:
+def calculate_oxygen_rate(input_values: InputType) -> int:
     assumed_digit_length = len(input_values[0])
 
     oxygen_rate_binary = None
@@ -36,7 +35,7 @@ def calculate_oxygen_rate(input_values: List[str]) -> int:
     return oxygen_rate
 
 
-def calculate_co2_rate(input_values: List[str]) -> int:
+def calculate_co2_rate(input_values: InputType) -> int:
     assumed_digit_length = len(input_values[0])
 
     co2_rate_binary = None

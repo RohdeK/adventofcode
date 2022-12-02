@@ -1,6 +1,3 @@
-from typing import List
-
-raw_input = """
 111010111011
 001011110010
 000110111100
@@ -1001,8 +998,3 @@ raw_input = """
 110100101001
 001100100100
 011100101000
-"""
-
-
-def get_input() -> List[str]:
-    return raw_input.split("\n")[1:-1]
