@@ -1,8 +1,7 @@
-from typing import List
-from puzzles.day_01.load_inputs import get_input
+from archive.y2021.puzzles.day_01.load_inputs import get_input, InputType
 
 
-def count_increases(input_list: List[int]) -> int:
+def count_increases(input_list: InputType) -> int:
     inc = 0
 
     prev_val = None

@@ -1,9 +1,9 @@
-from typing import List, Tuple
+from typing import Tuple
 
-from puzzles.day_02.input_part_1 import get_input
+from archive.y2021.puzzles.day_02.load_inputs import get_input, InputType
 
 
-def calculate_course(starting_position: Tuple[int, int, int], course_description: List[str]) -> Tuple[int, int]:
+def calculate_course(starting_position: Tuple[int, int, int], course_description: InputType) -> Tuple[int, int]:
     horizontal, depth, aim = starting_position
 
     for command in course_description:

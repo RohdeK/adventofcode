@@ -1,8 +1,8 @@
-from typing import List, Tuple
+from typing import List
 
 from utils.input_deformatter import InputDeformatter
 
-InputType = List[Tuple[str, str]]
+InputType = List[List[int]]
 
 
 def get_raw_input() -> str:
@@ -12,7 +12,7 @@ def get_raw_input() -> str:
 
 def transform_input(raw_input: str) -> InputType:
     return InputDeformatter[InputType](
-        inline_secondary_split=" ",
+        cast_inner_type=int,
     ).load(raw_input)
 
 

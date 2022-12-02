@@ -48,7 +48,7 @@ def get_raw_input() -> str:
 
 
 def transform_input(raw_input: str) -> InputType:
-    # return InputDeformatter(...).load(raw_input)
+    # return InputDeformatter[InputType](...).load(raw_input)
     raise NotImplemented
 
 

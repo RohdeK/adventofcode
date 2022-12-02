@@ -1,6 +1,3 @@
-from typing import List
-
-_raw_input = """
 184
 205
 211
@@ -2001,8 +1998,3 @@ _raw_input = """
 3279
 3281
 3288
-"""
-
-
-def get_input() -> List[int]:
-    return [int(val) for val in _raw_input.split("\n") if len(val)]
