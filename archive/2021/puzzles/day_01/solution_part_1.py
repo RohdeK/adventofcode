@@ -1,5 +1,5 @@
 from typing import List
-from puzzles.day_01.input_part_1 import get_input
+from puzzles.day_01.load_inputs import get_input
 
 
 def count_increases(input_list: List[int]) -> int:

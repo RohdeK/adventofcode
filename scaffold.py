@@ -37,6 +37,8 @@ if __name__ == "__main__":
     (base_path / "input.txt").touch()
 
     (base_path / "load_inputs.py").write_text("""
+from utils.input_deformatter import InputDeformatter
+
 InputType = None
 
 
@@ -46,7 +48,8 @@ def get_raw_input() -> str:
 
 
 def transform_input(raw_input: str) -> InputType:
-    raise NotImplemented()
+    # return InputDeformatter(...).load(raw_input)
+    raise NotImplemented
 
 
 def get_input() -> InputType:
@@ -59,7 +62,8 @@ from puzzles.day_{day:02d}.solution_part_1 import calculate_solution
 
 
 def test_example():
-    raw_test_input = ""
+    raw_test_input = \"\"\"
+    \"\"\"
     
     test_input = transform_input(raw_test_input)
 
@@ -74,7 +78,8 @@ from puzzles.day_{day:02d}.solution_part_2 import calculate_solution
 
 
 def test_example():
-    raw_test_input = ""
+    raw_test_input = \"\"\"
+    \"\"\"
     
     test_input = transform_input(raw_test_input)
 
@@ -85,4 +90,4 @@ def test_example():
 
 
 if __name__ == '__main__':
-    scaffold_day(2)
+    scaffold_day(3)
