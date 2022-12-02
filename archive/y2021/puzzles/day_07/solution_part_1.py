@@ -1,10 +1,10 @@
 from statistics import median
-from typing import List
-
-from archive.y2021.puzzles.day_07.input_part_1 import get_input
 
 
-def move_into_line(input_values: List[int]) -> int:
+from archive.y2021.puzzles.day_07.load_inputs import get_input, InputType
+
+
+def move_into_line(input_values: InputType) -> int:
     optimal_position = int(median(input_values))
 
     return sum(abs(pos - optimal_position) for pos in input_values)

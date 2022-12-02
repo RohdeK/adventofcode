@@ -1,6 +1,3 @@
-from typing import List
-
-raw_input = """
 35,968 -> 974,29
 198,552 -> 124,478
 731,697 -> 828,697
@@ -501,8 +498,3 @@ raw_input = """
 685,645 -> 448,645
 707,579 -> 163,35
 330,313 -> 151,313
-"""
-
-
-def get_input() -> List[str]:
-    return [line for line in raw_input.split("\n") if line]

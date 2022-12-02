@@ -1,16 +1,16 @@
 from statistics import mean
 from typing import List
 
-from archive.y2021.puzzles.day_07.input_part_1 import get_input
+from archive.y2021.puzzles.day_07.load_inputs import get_input, InputType
 
 
-def calculate_fuel(optimal_position: int, input_values: List[int]):
+def calculate_fuel(optimal_position: int, input_values: InputType):
     distances = [abs(pos - optimal_position) for pos in input_values]
 
     return sum([dist * (dist + 1) // 2 for dist in distances])
 
 
-def jitter_minimize_fuel(input_values: List[int]):
+def jitter_minimize_fuel(input_values: InputType):
     supposed_opt = round(mean(input_values))
 
     init = calculate_fuel(supposed_opt, get_input())

@@ -1,6 +1,3 @@
-from typing import List
-
-raw_input = """
 cg fadegbc ecfadb acdbeg abgfe dcegfb gcad bceag debca bgc | ceafbd gfedcb cabedf dbace
 bgeacd ea dfcab fcdgbae ecbgf gbcadf defa cae dcaefb fabce | ea fdae daecgb cea
 fb gafbec dcabe ecfdag fagdcb afcdb cbf gdfb agfdc acfgdbe | acdgfb gdcfa bceda bf
@@ -201,8 +198,3 @@ gcedab facgbd efadg edacg bdafecg fedgb fda af aefc gafcde | dgecfa ebdgac fa bd
 gdba gedfb egfbad fegadc ecgfba dfbec gd cbedfga abefg fdg | fcadge gdbef fegbac agbef
 fbdec fdbceag feacb fbcgd dcbfge dec efgadc dcbafg ed dbge | cabgdf ceafb afgdec de
 cbgaed fbagc cbfd bdaegf bdcag egdbfac afgce bcfadg baf bf | fb baf edgafb cbgda
-"""
-
-
-def get_input() -> List[str]:
-    return raw_input.split("\n")[1:-1]

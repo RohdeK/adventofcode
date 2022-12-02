@@ -1,6 +1,6 @@
 from typing import List
 
-from archive.y2021.puzzles.day_05.input_part_1 import get_input
+from archive.y2021.puzzles.day_05.load_inputs import get_input, InputType
 from archive.y2021.puzzles.day_05.solution_part_1 import Line as HorVertLine, OverlapGrid, Point
 
 
@@ -18,7 +18,7 @@ class Line(HorVertLine):
             return super().points()
 
 
-def find_overlapping_areas(input_values: List[str], minimum_overlap: int):
+def find_overlapping_areas(input_values: InputType, minimum_overlap: int):
     grid = OverlapGrid()
 
     for line in [Line(value) for value in input_values]:

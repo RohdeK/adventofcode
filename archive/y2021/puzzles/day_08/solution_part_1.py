@@ -1,9 +1,7 @@
-from typing import List
-
-from archive.y2021.puzzles.day_08.input_part_1 import get_input
+from archive.y2021.puzzles.day_08.load_inputs import get_input, InputType
 
 
-def count_unique_type_digits(input_values: List[str]) -> int:
+def count_unique_type_digits(input_values: InputType) -> int:
     unique_count = 0
 
     for signals in input_values:

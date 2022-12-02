@@ -1,8 +1,10 @@
+from archive.y2021.puzzles.day_06.load_inputs import transform_input
 from archive.y2021.puzzles.day_06.solution_part_2 import OptimizedSea
 
 
 def test_example():
-    fish_timers = [3, 4, 3, 1, 2]
+    raw_test_input = """3,4,3,1,2"""
+    fish_timers = transform_input(raw_test_input)
 
     sea = OptimizedSea(fish_timers)
 

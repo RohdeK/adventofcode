@@ -1,7 +1,7 @@
 from collections import Counter
 from typing import List
 
-from archive.y2021.puzzles.day_08.input_part_1 import get_input
+from archive.y2021.puzzles.day_08.load_inputs import get_input, InputType
 
 
 class DigitClock:
@@ -30,7 +30,7 @@ class DigitClock:
         return "".join(sorted(digit))
 
 
-def calculate_output_values(input_values: List[str]) -> List[int]:
+def calculate_output_values(input_values: InputType) -> List[int]:
     return [deduce_output_value(value) for value in input_values]
 
 
