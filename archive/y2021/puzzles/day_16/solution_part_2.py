@@ -1,7 +1,7 @@
 from functools import reduce
 
-from puzzles.day_16.input_part_1 import get_input
-from puzzles.day_16.solution_part_1 import BITS
+from archive.y2021.puzzles.day_16.input_part_1 import get_input
+from archive.y2021.puzzles.day_16.solution_part_1 import BITS
 
 
 def evaluate(bit: BITS) -> int:

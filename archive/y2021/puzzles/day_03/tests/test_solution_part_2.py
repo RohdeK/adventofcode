@@ -1,4 +1,4 @@
-from puzzles.day_03.solution_part_2 import calculate_co2_rate, calculate_oxygen_rate
+from archive.y2021.puzzles.day_03.solution_part_2 import calculate_co2_rate, calculate_oxygen_rate
 
 
 def test_example():

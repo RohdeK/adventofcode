@@ -1,5 +1,5 @@
-from puzzles.day_20.input_part_1 import from_enhancement_line, from_pixel_lines
-from puzzles.day_20.solution_part_2 import calculate_solution
+from archive.y2021.puzzles.day_20.input_part_1 import from_enhancement_line, from_pixel_lines
+from archive.y2021.puzzles.day_20.solution_part_2 import calculate_solution
 
 
 def test_example():

@@ -1,4 +1,4 @@
-from puzzles.day_14.solution_part_1 import apply_sequence, calculate_solution
+from archive.y2021.puzzles.day_14.solution_part_1 import apply_sequence, calculate_solution
 
 
 def test_example():

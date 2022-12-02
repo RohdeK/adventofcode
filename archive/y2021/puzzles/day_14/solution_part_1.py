@@ -1,7 +1,7 @@
 from collections import Counter
 from typing import Dict, List
 
-from puzzles.day_14.input_part_1 import get_input
+from archive.y2021.puzzles.day_14.input_part_1 import get_input
 
 
 def apply_sequence(input_sequence: str, insert_statements: List[str], step_count: int) -> str:

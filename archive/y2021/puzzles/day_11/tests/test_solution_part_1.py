@@ -1,4 +1,4 @@
-from puzzles.day_11.solution_part_1 import OctoGrid
+from archive.y2021.puzzles.day_11.solution_part_1 import OctoGrid
 
 
 def test_example():

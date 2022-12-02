@@ -1,6 +1,6 @@
 from typing import List
 
-from puzzles.day_08.input_part_1 import get_input
+from archive.y2021.puzzles.day_08.input_part_1 import get_input
 
 
 def count_unique_type_digits(input_values: List[str]) -> int:

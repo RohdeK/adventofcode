@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import List
 
-from puzzles.day_24.input_part_1 import get_input
+from archive.y2021.puzzles.day_24.input_part_1 import get_input
 
 
 class keydefaultdict(defaultdict):

@@ -1,4 +1,4 @@
-from puzzles.day_09.solution_part_1 import deepest_spots_risk
+from archive.y2021.puzzles.day_09.solution_part_1 import deepest_spots_risk
 
 
 def test_example():

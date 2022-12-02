@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from puzzles.day_17.input_part_1 import get_input
+from archive.y2021.puzzles.day_17.input_part_1 import get_input
 
 
 def calculate_solution(hor: Tuple[int, int], vert: Tuple[int, int]) -> int:

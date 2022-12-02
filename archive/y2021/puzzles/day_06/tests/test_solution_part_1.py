@@ -1,4 +1,4 @@
-from puzzles.day_06.solution_part_1 import Fish, Sea
+from archive.y2021.puzzles.day_06.solution_part_1 import Fish, Sea
 
 
 def test_example():

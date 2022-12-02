@@ -1,7 +1,7 @@
 from typing import List
 
-from puzzles.day_05.input_part_1 import get_input
-from puzzles.day_05.solution_part_1 import Line as HorVertLine, OverlapGrid, Point
+from archive.y2021.puzzles.day_05.input_part_1 import get_input
+from archive.y2021.puzzles.day_05.solution_part_1 import Line as HorVertLine, OverlapGrid, Point
 
 
 class Line(HorVertLine):

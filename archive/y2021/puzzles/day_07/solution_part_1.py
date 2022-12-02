@@ -1,7 +1,7 @@
 from statistics import median
 from typing import List
 
-from puzzles.day_07.input_part_1 import get_input
+from archive.y2021.puzzles.day_07.input_part_1 import get_input
 
 
 def move_into_line(input_values: List[int]) -> int:

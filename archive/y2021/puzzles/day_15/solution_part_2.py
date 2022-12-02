@@ -1,7 +1,7 @@
 from typing import List
 
-from puzzles.day_15.input_part_1 import get_input
-from puzzles.day_15.solution_part_1 import shortest_path_length
+from archive.y2021.puzzles.day_15.input_part_1 import get_input
+from archive.y2021.puzzles.day_15.solution_part_1 import shortest_path_length
 
 
 def multiply_grid(input_values: List[List[int]], size: int, increase=0) -> List[List[int]]:

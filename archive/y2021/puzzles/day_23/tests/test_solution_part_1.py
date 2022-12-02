@@ -1,4 +1,4 @@
-from puzzles.day_23.solution_part_1 import calculate_solution, House
+from archive.y2021.puzzles.day_23.solution_part_1 import calculate_solution, House
 
 
 def test_example():

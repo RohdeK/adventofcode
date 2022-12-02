@@ -1,8 +1,8 @@
 from collections import Counter
 from typing import List
 
-from puzzles.day_03.input_part_1 import get_input
-from puzzles.day_03.solution_part_1 import transpose_values
+from archive.y2021.puzzles.day_03.input_part_1 import get_input
+from archive.y2021.puzzles.day_03.solution_part_1 import transpose_values
 
 
 def calculate_oxygen_rate(input_values: List[str]) -> int:

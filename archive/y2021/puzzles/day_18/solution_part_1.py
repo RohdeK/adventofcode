@@ -1,6 +1,6 @@
 from typing import Iterator, List, Optional, Tuple, Union
 
-from puzzles.day_18.input_part_1 import get_input, SnailNumberListRep
+from archive.y2021.puzzles.day_18.input_part_1 import get_input, SnailNumberListRep
 
 
 class SnailNumber:

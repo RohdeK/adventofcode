@@ -1,7 +1,7 @@
 from typing import List, Tuple, Union, Optional
 from itertools import combinations
 
-from puzzles.day_22.input_part_1 import get_input
+from archive.y2021.puzzles.day_22.input_part_1 import get_input
 
 
 class Cube:

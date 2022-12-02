@@ -1,4 +1,4 @@
-from puzzles.day_09.solution_part_2 import basin_size_proof_numer
+from archive.y2021.puzzles.day_09.solution_part_2 import basin_size_proof_numer
 
 
 def test_example():

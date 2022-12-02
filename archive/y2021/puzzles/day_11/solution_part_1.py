@@ -1,6 +1,6 @@
 from typing import Iterator, List, Optional
 
-from puzzles.day_11.input_part_1 import get_input
+from archive.y2021.puzzles.day_11.input_part_1 import get_input
 
 
 class OctoGrid:

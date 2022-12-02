@@ -1,7 +1,7 @@
 from typing import List
 
-from puzzles.day_22.input_part_1 import get_input
-from puzzles.day_22.solution_part_1 import Cube, CubeSet
+from archive.y2021.puzzles.day_22.input_part_1 import get_input
+from archive.y2021.puzzles.day_22.solution_part_1 import Cube, CubeSet
 
 
 def calculate_solution(input_values: List[str]) -> int:

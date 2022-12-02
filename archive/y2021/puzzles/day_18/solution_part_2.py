@@ -1,7 +1,7 @@
 from typing import List
 
-from puzzles.day_18.input_part_1 import SnailNumberListRep, get_input
-from puzzles.day_18.solution_part_1 import SnailNumber
+from archive.y2021.puzzles.day_18.input_part_1 import SnailNumberListRep, get_input
+from archive.y2021.puzzles.day_18.solution_part_1 import SnailNumber
 
 
 def calculate_solution(input_values: List[SnailNumberListRep]) -> int:

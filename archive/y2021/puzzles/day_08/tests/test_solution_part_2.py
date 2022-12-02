@@ -1,4 +1,4 @@
-from puzzles.day_08.solution_part_2 import DigitClock, calculate_output_values, deduce_output_value
+from archive.y2021.puzzles.day_08.solution_part_2 import DigitClock, calculate_output_values, deduce_output_value
 
 
 def test_example():

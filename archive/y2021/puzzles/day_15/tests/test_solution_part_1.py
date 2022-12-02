@@ -1,4 +1,4 @@
-from puzzles.day_15.solution_part_1 import shortest_path_length
+from archive.y2021.puzzles.day_15.solution_part_1 import shortest_path_length
 
 
 def test_example():

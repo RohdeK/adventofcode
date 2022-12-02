@@ -1,4 +1,4 @@
-from puzzles.day_07.solution_part_1 import move_into_line
+from archive.y2021.puzzles.day_07.solution_part_1 import move_into_line
 
 
 def test_example():

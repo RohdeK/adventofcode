@@ -1,7 +1,7 @@
 from typing import List
 
-from puzzles.day_12.input_part_1 import get_input
-from puzzles.day_12.solution_part_1 import PathFinder
+from archive.y2021.puzzles.day_12.input_part_1 import get_input
+from archive.y2021.puzzles.day_12.solution_part_1 import PathFinder
 
 
 class AlteredPathFinder(PathFinder):

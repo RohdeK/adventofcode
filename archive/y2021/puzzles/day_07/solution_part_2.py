@@ -1,7 +1,7 @@
 from statistics import mean
 from typing import List
 
-from puzzles.day_07.input_part_1 import get_input
+from archive.y2021.puzzles.day_07.input_part_1 import get_input
 
 
 def calculate_fuel(optimal_position: int, input_values: List[int]):

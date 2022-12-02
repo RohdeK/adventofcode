@@ -1,6 +1,6 @@
 from typing import Iterator, List, Tuple
 
-from puzzles.day_09.input_part_1 import get_input
+from archive.y2021.puzzles.day_09.input_part_1 import get_input
 
 
 def deepest_spots_risk(input_values: List[List[int]]) -> int:

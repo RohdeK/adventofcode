@@ -1,4 +1,4 @@
-from puzzles.day_18.solution_part_1 import SnailNumber, calculate_solution
+from archive.y2021.puzzles.day_18.solution_part_1 import SnailNumber, calculate_solution
 
 
 def test_magnitude():

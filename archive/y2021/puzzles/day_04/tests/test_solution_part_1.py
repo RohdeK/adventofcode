@@ -1,4 +1,4 @@
-from puzzles.day_04.solution_part_1 import BingoBoard, determine_winning_board
+from archive.y2021.puzzles.day_04.solution_part_1 import BingoBoard, determine_winning_board
 
 
 def test_example():

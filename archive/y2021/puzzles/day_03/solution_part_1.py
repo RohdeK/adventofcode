@@ -1,7 +1,7 @@
 from typing import List, Tuple
 from collections import Counter
 
-from puzzles.day_03.input_part_1 import get_input
+from archive.y2021.puzzles.day_03.input_part_1 import get_input
 
 
 def transpose_values(input_values: List[str]) -> List[List[str]]:

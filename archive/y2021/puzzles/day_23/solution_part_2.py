@@ -1,6 +1,6 @@
 from typing import Tuple, List
 
-from puzzles.day_23.input_part_1 import get_input
+from archive.y2021.puzzles.day_23.input_part_1 import get_input
 
 
 if __name__ == "__main__":

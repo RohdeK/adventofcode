@@ -1,4 +1,4 @@
-from puzzles.day_11.solution_part_2 import SyncOctoGrid
+from archive.y2021.puzzles.day_11.solution_part_2 import SyncOctoGrid
 
 
 def test_example():

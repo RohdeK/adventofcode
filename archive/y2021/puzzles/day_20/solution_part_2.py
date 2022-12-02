@@ -1,7 +1,7 @@
 from typing import List
 
-from puzzles.day_20.input_part_1 import get_input
-from puzzles.day_20.solution_part_1 import enhance_pixels
+from archive.y2021.puzzles.day_20.input_part_1 import get_input
+from archive.y2021.puzzles.day_20.solution_part_1 import enhance_pixels
 
 
 def calculate_solution(input_pixels: List[List[bool]], input_enhancement: List[bool]) -> int:

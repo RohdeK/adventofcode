@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from puzzles.day_06.input_part_1 import get_input
+from archive.y2021.puzzles.day_06.input_part_1 import get_input
 
 
 class Fish:

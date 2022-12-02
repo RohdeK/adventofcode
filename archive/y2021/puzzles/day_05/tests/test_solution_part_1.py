@@ -1,4 +1,4 @@
-from puzzles.day_05.solution_part_1 import find_overlapping_areas
+from archive.y2021.puzzles.day_05.solution_part_1 import find_overlapping_areas
 
 
 def test_example():

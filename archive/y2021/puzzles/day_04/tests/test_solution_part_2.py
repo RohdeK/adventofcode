@@ -1,5 +1,5 @@
-from puzzles.day_04.solution_part_1 import BingoBoard
-from puzzles.day_04.solution_part_2 import determine_losing_board
+from archive.y2021.puzzles.day_04.solution_part_1 import BingoBoard
+from archive.y2021.puzzles.day_04.solution_part_2 import determine_losing_board
 
 
 def test_example():

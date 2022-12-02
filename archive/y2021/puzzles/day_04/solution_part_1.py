@@ -1,6 +1,6 @@
 from typing import List
 
-from puzzles.day_04.input_part_1 import get_input
+from archive.y2021.puzzles.day_04.input_part_1 import get_input
 
 
 class BingoBoard:

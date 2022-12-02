@@ -1,7 +1,7 @@
 from functools import reduce
 from typing import Generic, List, Tuple, TypeVar
 
-from puzzles.day_09.input_part_1 import get_input
+from archive.y2021.puzzles.day_09.input_part_1 import get_input
 
 T = TypeVar("T")
 

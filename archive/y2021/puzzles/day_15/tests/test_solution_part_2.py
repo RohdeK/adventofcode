@@ -1,5 +1,5 @@
-from puzzles.day_15.solution_part_1 import shortest_path_length
-from puzzles.day_15.solution_part_2 import multiply_grid
+from archive.y2021.puzzles.day_15.solution_part_1 import shortest_path_length
+from archive.y2021.puzzles.day_15.solution_part_2 import multiply_grid
 
 
 def test_example():

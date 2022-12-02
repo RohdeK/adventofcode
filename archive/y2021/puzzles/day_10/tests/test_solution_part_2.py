@@ -1,4 +1,4 @@
-from puzzles.day_10.solution_part_2 import Status, calculate_score, calculate_solution, check_status
+from archive.y2021.puzzles.day_10.solution_part_2 import Status, calculate_score, calculate_solution, check_status
 
 
 def test_example():

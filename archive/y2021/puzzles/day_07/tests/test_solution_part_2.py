@@ -1,4 +1,4 @@
-from puzzles.day_07.solution_part_2 import jitter_minimize_fuel
+from archive.y2021.puzzles.day_07.solution_part_2 import jitter_minimize_fuel
 
 
 def test_example():

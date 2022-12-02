@@ -2,7 +2,7 @@ from ast import literal_eval
 from enum import Enum
 from typing import List, Optional
 
-from puzzles.day_10.input_part_1 import get_input
+from archive.y2021.puzzles.day_10.input_part_1 import get_input
 
 
 class Status(Enum):

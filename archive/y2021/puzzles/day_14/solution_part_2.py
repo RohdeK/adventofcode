@@ -1,7 +1,7 @@
 from collections import Counter, defaultdict
 from typing import Dict, List
 
-from puzzles.day_14.input_part_1 import get_input
+from archive.y2021.puzzles.day_14.input_part_1 import get_input
 
 
 def calculate_solution(input_sequence: str, insert_statements: List[str], step_count: int) -> int:

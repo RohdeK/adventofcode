@@ -1,4 +1,4 @@
-from puzzles.day_06.solution_part_2 import OptimizedSea
+from archive.y2021.puzzles.day_06.solution_part_2 import OptimizedSea
 
 
 def test_example():

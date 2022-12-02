@@ -1,5 +1,5 @@
-from puzzles.day_11.input_part_1 import get_input
-from puzzles.day_11.solution_part_1 import OctoGrid
+from archive.y2021.puzzles.day_11.input_part_1 import get_input
+from archive.y2021.puzzles.day_11.solution_part_1 import OctoGrid
 
 
 class SyncOctoGrid(OctoGrid):

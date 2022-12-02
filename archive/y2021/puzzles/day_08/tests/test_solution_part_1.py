@@ -1,4 +1,4 @@
-from puzzles.day_08.solution_part_1 import count_unique_type_digits
+from archive.y2021.puzzles.day_08.solution_part_1 import count_unique_type_digits
 
 
 def test_example():

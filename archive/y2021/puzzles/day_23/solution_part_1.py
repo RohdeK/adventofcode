@@ -2,7 +2,7 @@ from typing import List, Tuple, Dict, Optional
 from enum import Enum
 import math
 
-from puzzles.day_23.input_part_1 import get_input
+from archive.y2021.puzzles.day_23.input_part_1 import get_input
 
 
 class RoomType(int, Enum):

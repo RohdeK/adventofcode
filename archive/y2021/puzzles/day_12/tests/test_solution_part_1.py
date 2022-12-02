@@ -1,4 +1,4 @@
-from puzzles.day_12.solution_part_1 import count_all_paths
+from archive.y2021.puzzles.day_12.solution_part_1 import count_all_paths
 
 
 def test_example():

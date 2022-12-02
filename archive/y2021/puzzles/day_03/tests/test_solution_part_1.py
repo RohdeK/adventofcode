@@ -1,4 +1,4 @@
-from puzzles.day_03.solution_part_1 import calculate_rates
+from archive.y2021.puzzles.day_03.solution_part_1 import calculate_rates
 
 
 def test_example():

@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
-from puzzles.day_19.input_part_1 import get_input
-from puzzles.day_19.solution_part_1 import merge_until_done
+from archive.y2021.puzzles.day_19.input_part_1 import get_input
+from archive.y2021.puzzles.day_19.solution_part_1 import merge_until_done
 
 
 def calculate_solution(input_values: List[List[Tuple[int, int, int]]]) -> int:

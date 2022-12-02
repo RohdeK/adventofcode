@@ -2,7 +2,7 @@ import math
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
-from puzzles.day_20.input_part_1 import get_input
+from archive.y2021.puzzles.day_20.input_part_1 import get_input
 
 
 def measure_index_field(input_pixels: Dict[Tuple[int, int], bool]) -> Tuple[int, int, int, int]:

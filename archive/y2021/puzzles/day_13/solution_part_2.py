@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
-from puzzles.day_13.input_part_1 import get_input
-from puzzles.day_13.solution_part_1 import fold_dotted_paper
+from archive.y2021.puzzles.day_13.input_part_1 import get_input
+from archive.y2021.puzzles.day_13.solution_part_1 import fold_dotted_paper
 
 
 def display_dots(input_values: List[Tuple[int, int]]) -> str:

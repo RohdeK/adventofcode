@@ -1,7 +1,7 @@
 from typing import List
 
-from puzzles.day_04.input_part_1 import get_input
-from puzzles.day_04.solution_part_1 import BingoBoard
+from archive.y2021.puzzles.day_04.input_part_1 import get_input
+from archive.y2021.puzzles.day_04.solution_part_1 import BingoBoard
 
 
 def determine_losing_board(boards: List[BingoBoard], draws: List[int]) -> BingoBoard:

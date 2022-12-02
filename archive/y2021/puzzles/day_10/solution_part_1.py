@@ -1,7 +1,7 @@
 from ast import literal_eval
 from typing import List, Optional
 
-from puzzles.day_10.input_part_1 import get_input
+from archive.y2021.puzzles.day_10.input_part_1 import get_input
 
 
 def interpret_with_replacement(input_line: str, smaller_sign: str, larger_sign: str) -> Optional[str]:

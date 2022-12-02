@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
-from puzzles.day_21.input_part_1 import get_input
+from archive.y2021.puzzles.day_21.input_part_1 import get_input
 
 
 class PossibilitySpaceDiracGame:

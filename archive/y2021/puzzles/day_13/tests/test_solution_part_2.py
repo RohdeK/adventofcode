@@ -1,4 +1,4 @@
-from puzzles.day_13.solution_part_2 import display_dots, fold_dotted_paper_full
+from archive.y2021.puzzles.day_13.solution_part_2 import display_dots, fold_dotted_paper_full
 
 
 def test_example():

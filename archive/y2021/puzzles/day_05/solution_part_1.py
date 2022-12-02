@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import Dict, Iterator, List, Tuple
 
-from puzzles.day_05.input_part_1 import get_input
+from archive.y2021.puzzles.day_05.input_part_1 import get_input
 
 Point = Tuple[int, int]
 

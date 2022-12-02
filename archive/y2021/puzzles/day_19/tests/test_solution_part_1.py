@@ -1,4 +1,4 @@
-from puzzles.day_19.solution_part_1 import Scanner, calculate_solution
+from archive.y2021.puzzles.day_19.solution_part_1 import Scanner, calculate_solution
 
 
 def test_finds_overlap():

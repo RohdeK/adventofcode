@@ -1,4 +1,4 @@
-from puzzles.day_21.solution_part_1 import calculate_solution
+from archive.y2021.puzzles.day_21.solution_part_1 import calculate_solution
 
 
 def test_example():
