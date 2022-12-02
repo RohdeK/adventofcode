@@ -1,4 +1,4 @@
-from puzzles.day_02.load_inputs import transform_input
+from puzzles.day_02.load_inputs import input_reader
 from puzzles.day_02.solution_part_2 import calculate_solution
 
 
@@ -9,7 +9,7 @@ def test_example():
     C Z
     """
     
-    test_input = transform_input(raw_test_input)
+    test_input = input_reader.load(raw_test_input)
 
     solution = calculate_solution(test_input)
 

@@ -1,4 +1,4 @@
-from puzzles.day_02.load_inputs import get_input, InputType
+from puzzles.day_02.load_inputs import input_reader, InputType
 from puzzles.day_02.solution_part_1 import Move, Round
 
 
@@ -33,4 +33,5 @@ def calculate_solution(input_values: InputType) -> int:
 
 
 if __name__ == "__main__":
-    print(calculate_solution(get_input()))
+    puzzle_input = input_reader.from_file("./input.txt")
+    print(calculate_solution(puzzle_input))

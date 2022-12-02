@@ -64,3 +64,7 @@ class InputDeformatter(Generic[T]):
                 current_bucket.append(line_result)
 
         return output_values
+
+    def from_file(self, file_path: str) -> T:
+        with open(file_path) as file:
+            return self.load(file.read())

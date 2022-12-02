@@ -19,7 +19,8 @@ def calculate_solution(input_values: InputType) -> int:
 
 
 if __name__ == "__main__":
-    print(calculate_solution(get_input()))
+    puzzle_input = input_reader.from_file("./input.txt")
+    print(calculate_solution(puzzle_input))
 """)
 
     (base_path / "solution_part_2.py").write_text(f"""
@@ -31,7 +32,8 @@ def calculate_solution(input_values: InputType) -> int:
 
 
 if __name__ == "__main__":
-    print(calculate_solution(get_input()))
+    puzzle_input = input_reader.from_file("./input.txt")
+    print(calculate_solution(puzzle_input))
 """)
 
     (base_path / "input.txt").touch()
@@ -41,23 +43,11 @@ from utils.input_deformatter import InputDeformatter
 
 InputType = None
 
-
-def get_raw_input() -> str:
-    with open("./input.txt") as file:
-        return file.read()
-
-
-def transform_input(raw_input: str) -> InputType:
-    # return InputDeformatter[InputType](...).load(raw_input)
-    raise NotImplemented
-
-
-def get_input() -> InputType:
-    return transform_input(get_raw_input())
+input_reader = InputDeformatter[InputType]()
 """)
 
     (base_path / "tests" / "test_solution_part_1.py").write_text(f"""
-from puzzles.day_{day:02d}.load_inputs import transform_input
+from puzzles.day_{day:02d}.load_inputs import input_reader
 from puzzles.day_{day:02d}.solution_part_1 import calculate_solution
 
 
@@ -65,7 +55,7 @@ def test_example():
     raw_test_input = \"\"\"
     \"\"\"
     
-    test_input = transform_input(raw_test_input)
+    test_input = input_reader.load(raw_test_input)
 
     solution = calculate_solution(test_input)
 
@@ -73,7 +63,7 @@ def test_example():
 """)
 
     (base_path / "tests" / "test_solution_part_2.py").write_text(f"""
-from puzzles.day_{day:02d}.load_inputs import transform_input
+from puzzles.day_{day:02d}.load_inputs import input_reader
 from puzzles.day_{day:02d}.solution_part_2 import calculate_solution
 
 
@@ -81,7 +71,7 @@ def test_example():
     raw_test_input = \"\"\"
     \"\"\"
     
-    test_input = transform_input(raw_test_input)
+    test_input = input_reader.load(raw_test_input)
 
     solution = calculate_solution(test_input)
 
