@@ -11,7 +11,7 @@ def scaffold_day(day: int):
     os.makedirs(base_path / "tests")
 
     (base_path / "solution_part_1.py").write_text(f"""
-from puzzles.day_{day:02d}.load_inputs import get_input, InputType
+from puzzles.day_{day:02d}.load_inputs import input_reader, InputType
 
 
 def calculate_solution(input_values: InputType) -> int:
@@ -24,7 +24,7 @@ if __name__ == "__main__":
 """)
 
     (base_path / "solution_part_2.py").write_text(f"""
-from puzzles.day_{day:02d}.load_inputs import get_input, InputType
+from puzzles.day_{day:02d}.load_inputs import input_reader, InputType
 
 
 def calculate_solution(input_values: InputType) -> int:
