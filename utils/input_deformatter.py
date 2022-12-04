@@ -54,10 +54,11 @@ class InputDeformatter(Generic[T]):
 
                 if self._inline_secondary_split is not None:
                     line_result = primary_entry.split(self._inline_secondary_split)
+                    line_result = tuple(line_result)
 
                 if self._cast_inner_type:
-                    if isinstance(line_result, list):
-                        line_result = [self._cast_inner_type(val) for val in line_result]
+                    if isinstance(line_result, tuple):
+                        line_result = tuple(self._cast_inner_type(val) for val in line_result)
                     else:
                         line_result = self._cast_inner_type(line_result)
 
