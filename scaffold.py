@@ -43,7 +43,7 @@ from utils.input_deformatter import InputDeformatter
 
 InputType = None
 
-input_reader = InputDeformatter[InputType]()
+input_reader = InputDeformatter()
 """)
 
     (base_path / "tests" / "test_solution_part_1.py").write_text(f"""

@@ -26,42 +26,11 @@ class Stackings:
         return tops_list
 
 
-def parse_slots(description: str) -> List[List[str]]:
-    heights = description.split("\n")
-    heights.reverse()
-
-    slots_def = heights[0]
-    slots_indices = [idx for idx, x in enumerate(slots_def) if x != " "]
-    slots = [[] for _ in slots_indices]
-
-    for height_row in heights[1:]:
-        for slot_index, slot_desc_index in enumerate(slots_indices):
-            try:
-                slot_content = height_row[slot_desc_index]
-            except IndexError:
-                continue
-
-            if slot_content != " ":
-                slots[slot_index].append(slot_content)
-
-    return slots
-
-
-def parse_move(description: str) -> Tuple[int, int, int]:
-    description, to_slot = description.split(" to ")
-    description, from_slot = description.split(" from ")
-    _, amount = description.split("move ")
-
-    return int(from_slot), int(to_slot), int(amount)
-
-
 def calculate_solution(input_values: InputType) -> int:
-    stack_desc, move_descs = input_values
-    stacking = Stackings(parse_slots(stack_desc))
+    stacks, moves = input_values
+    stacking = Stackings(stacks)
 
-    for move_desc in move_descs:
-        from_slot, to_slot, amount = parse_move(move_desc)
-
+    for from_slot, to_slot, amount in moves:
         stacking.move_many(from_slot, to_slot, amount)
 
     return "".join(stacking.tops())

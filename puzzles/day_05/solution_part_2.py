@@ -1,5 +1,5 @@
 from puzzles.day_05.load_inputs import InputType, input_reader
-from puzzles.day_05.solution_part_1 import Stackings, parse_move, parse_slots
+from puzzles.day_05.solution_part_1 import Stackings
 
 
 class Stackings2(Stackings):
@@ -10,12 +10,10 @@ class Stackings2(Stackings):
 
 
 def calculate_solution(input_values: InputType) -> int:
-    stack_desc, move_descs = input_values
-    stacking = Stackings2(parse_slots(stack_desc))
+    stacks, moves = input_values
+    stacking = Stackings2(stacks)
 
-    for move_desc in move_descs:
-        from_slot, to_slot, amount = parse_move(move_desc)
-
+    for from_slot, to_slot, amount in moves:
         stacking.move_many(from_slot, to_slot, amount)
 
     return "".join(stacking.tops())
