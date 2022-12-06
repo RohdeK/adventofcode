@@ -57,8 +57,10 @@ class InputDeformatter(Generic[T]):
     def _primary_split(self, raw_input: str) -> List[str]:
         if isinstance(self._input_primary_split, re.Pattern):
             primary_split = re.split(self._input_primary_split, raw_input)
-        else:
+        elif self._input_primary_split:
             primary_split = raw_input.split(self._input_primary_split)
+        else:
+            primary_split = list(raw_input)
 
         if self._empty_primary_boundary_strategy == "strip":
             primary_split = self._strip_empty_boundaries(primary_split)
