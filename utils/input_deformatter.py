@@ -86,7 +86,10 @@ class InputDeformatter(Generic[T]):
         if effective_split is None:
             return primary_entry
 
-        inline_split = primary_entry.split(effective_split)
+        if effective_split == "":
+            inline_split = list(primary_entry)
+        else:
+            inline_split = primary_entry.split(effective_split)
 
         if self._strip_secondary_split:
             inline_split = [entry.strip() for entry in inline_split]
