@@ -1,7 +1,7 @@
 from typing import Set, Tuple
 
-from puzzles.day_08.load_inputs import input_reader, InputType
-from puzzles.day_08.solution_part_1 import RopeModel
+from puzzles.day_09.load_inputs import input_reader, InputType
+from puzzles.day_09.solution_part_1 import RopeModel
 
 
 class ChainableRopeModel(RopeModel):

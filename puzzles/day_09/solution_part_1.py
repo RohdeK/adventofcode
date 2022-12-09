@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from puzzles.day_08.load_inputs import input_reader, InputType
+from puzzles.day_09.load_inputs import input_reader, InputType
 
 
 class RopeModel:

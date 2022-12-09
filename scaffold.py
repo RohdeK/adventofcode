@@ -80,4 +80,4 @@ def test_example():
 
 
 if __name__ == '__main__':
-    scaffold_day(8)
+    scaffold_day(9)
