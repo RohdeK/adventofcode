@@ -5,8 +5,6 @@ from puzzles.day_11.load_inputs import input_reader, InputType
 
 
 class Monkey:
-    BOREDNESS_WORRY_DECAY = 3
-
     def __init__(self, index: int, operation: str, test_divisible: int, true_target: int, false_target: int):
         self.index = index
         self.inspects = 0
@@ -39,7 +37,7 @@ class Monkey:
         return self.operation(item_level)
 
     def lose_interest(self, item_level: str) -> int:
-        return item_level // self.BOREDNESS_WORRY_DECAY
+        return item_level // 3
 
     def choose_throw_target(self, item_level: str) -> int:
         if item_level % self.test_divisible == 0:
@@ -82,7 +80,7 @@ class Jungle:
         return sorted(self.monkeys.values(), key=lambda x: x.inspects, reverse=True)[:num_active]
 
 
-def parse_monkey(monkey_desc: List[str]) -> Monkey:
+def parse_monkey(monkey_desc: List[str], mk_class=Monkey) -> Monkey:
     monkey_index = int(re.match(r"Monkey (\d+):", monkey_desc[0])[1])
 
     monkey_starting_items = monkey_desc[1].split("Starting items: ")[-1]
@@ -95,7 +93,7 @@ def parse_monkey(monkey_desc: List[str]) -> Monkey:
     monkey_true_target = int(monkey_desc[4].split("If true: throw to monkey ")[-1])
     monkey_false_target = int(monkey_desc[5].split("If false: throw to monkey ")[-1])
 
-    monkey = Monkey(
+    monkey = mk_class(
         index=monkey_index,
         operation=monkey_operation,
         test_divisible=monkey_divisible,
