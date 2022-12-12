@@ -80,4 +80,5 @@ def test_example():
 
 
 if __name__ == '__main__':
-    scaffold_day(11)
+    days_already_made = os.listdir("./puzzles")
+    scaffold_day(len(days_already_made) + 1)
