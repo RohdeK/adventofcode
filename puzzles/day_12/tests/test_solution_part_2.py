@@ -11,7 +11,7 @@ def test_example():
     acctuvwj
     abdefghi
     """
-    
+
     test_input = input_reader.load(raw_test_input)
 
     solution = calculate_solution(test_input)
