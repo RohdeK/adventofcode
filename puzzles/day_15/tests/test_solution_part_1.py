@@ -1,4 +1,3 @@
-
 from puzzles.day_15.load_inputs import input_reader
 from puzzles.day_15.solution_part_1 import calculate_solution
 
