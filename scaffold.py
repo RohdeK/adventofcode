@@ -21,7 +21,7 @@ def calculate_solution(input_values: InputType) -> int:
 if __name__ == "__main__":
     puzzle_input = input_reader.from_file("./input.txt")
     print(calculate_solution(puzzle_input))
-""")
+""".lstrip("\n"))
 
     (base_path / "solution_part_2.py").write_text(f"""
 from puzzles.day_{day:02d}.load_inputs import input_reader, InputType
@@ -34,7 +34,7 @@ def calculate_solution(input_values: InputType) -> int:
 if __name__ == "__main__":
     puzzle_input = input_reader.from_file("./input.txt")
     print(calculate_solution(puzzle_input))
-""")
+""".lstrip("\n"))
 
     (base_path / "input.txt").touch()
 
@@ -44,7 +44,7 @@ from utils.input_deformatter import InputDeformatter
 InputType = None
 
 input_reader = InputDeformatter()
-""")
+""".lstrip("\n"))
 
     (base_path / "tests" / "test_solution_part_1.py").write_text(f"""
 from puzzles.day_{day:02d}.load_inputs import input_reader
@@ -60,7 +60,7 @@ def test_example():
     solution = calculate_solution(test_input)
 
     assert solution == NotImplemented
-""")
+""".lstrip("\n"))
 
     (base_path / "tests" / "test_solution_part_2.py").write_text(f"""
 from puzzles.day_{day:02d}.load_inputs import input_reader
@@ -76,7 +76,7 @@ def test_example():
     solution = calculate_solution(test_input)
 
     assert solution == NotImplemented
-""")
+""".lstrip("\n"))
 
 
 if __name__ == '__main__':

@@ -1,8 +1,7 @@
 from collections import defaultdict
-from itertools import permutations
 from typing import Dict, List
 
-from puzzles.day_18.load_inputs import Cubelet, input_reader, InputType
+from puzzles.day_18.load_inputs import input_reader, InputType
 
 
 def calculate_solution(input_values: InputType) -> int:
