@@ -92,10 +92,10 @@ class CubedMap(Map):
 
         if direction_shift == 1:
             if self.state.direction in (Direction.DOWN, Direction.UP):
-                next_relative_row = self.facet_dim - 1 - relative_col
+                next_relative_row = relative_col
                 next_relative_col = relative_row
             else:
-                next_relative_row = relative_col
+                next_relative_row = self.facet_dim - 1 - relative_col
                 next_relative_col = self.facet_dim - 1 - relative_row
         elif direction_shift == 2:
             if self.state.direction in (Direction.DOWN, Direction.UP):
@@ -110,13 +110,13 @@ class CubedMap(Map):
                 next_relative_col = self.facet_dim - 1 - relative_row
             else:
                 next_relative_row = self.facet_dim - 1 - relative_col
-                next_relative_col = relative_row
+                next_relative_col = self.facet_dim - 1 - relative_row
         else:
             raise ValueError(next_facet, direction_shift)
 
         next_wrapped = next(tile for tile in self.tiles_by_facet[next_facet] if self.relative(tile) == (next_relative_row, next_relative_col))
 
-        print(f"Moving from ({next_row}, {next_col})[{current_facet}] to ({next_wrapped.row}, {next_wrapped.col})[{next_facet}].")
+        print(f"Moving from ({next_row}, {next_col}) = ({relative_row}, {relative_col})[{current_facet}] {self.state.direction} to ({next_wrapped.row}, {next_wrapped.col})=({next_relative_row}, {next_relative_col})[{next_facet}].")
 
         if next_wrapped.is_empty():
             self.state.direction = self.state.direction.shift(direction_shift)
@@ -139,4 +139,70 @@ def calculate_solution(
 
 if __name__ == "__main__":
     puzzle_input = input_reader.from_file("./input.txt")
-    print(calculate_solution(puzzle_input))
+
+    facets = [
+        [None, 1, 3],
+        [None, 2],
+        [4, 6],
+        [5],
+    ]
+
+    raw_test_input = """
+    111#3333
+    1#113#33
+    #1113333
+    111133#3
+    222#
+    #222
+    2222
+    22#2
+444#6666
+44446666
+44#4666#
+44446666
+555#        
+5555        
+5#55        
+5555        
+    """
+
+    facet_movements = {
+        1: {
+            Direction.UP: (5, 1),
+            Direction.DOWN: (2, 0),
+            Direction.LEFT: (4, 2),
+            Direction.RIGHT: (3, 0),
+        },
+        2: {
+            Direction.UP: (1, 0),
+            Direction.DOWN: (6, 0),
+            Direction.LEFT: (4, 3),
+            Direction.RIGHT: (3, 3),
+        },
+        3: {
+            Direction.UP: (5, 2),
+            Direction.DOWN: (2, 1),
+            Direction.LEFT: (1, 0),
+            Direction.RIGHT: (6, 2),
+        },
+        4: {
+            Direction.UP: (2, 1),
+            Direction.DOWN: (5, 0),
+            Direction.LEFT: (1, 2),
+            Direction.RIGHT: (6, 0),
+        },
+        5: {
+            Direction.UP: (4, 0),
+            Direction.DOWN: (3, 2),
+            Direction.LEFT: (1, 3),
+            Direction.RIGHT: (6, 3),
+        },
+        6: {
+            Direction.UP: (2, 0),
+            Direction.DOWN: (5, 1),
+            Direction.LEFT: (4, 0),
+            Direction.RIGHT: (3, 2),
+        }
+    }
+
+    print(calculate_solution(puzzle_input, facets, facet_movements, 50))
