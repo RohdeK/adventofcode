@@ -55,7 +55,9 @@ class InputDeformatter(Generic[T]):
         return output_values
 
     def _primary_split(self, raw_input: str) -> List[str]:
-        if isinstance(self._input_primary_split, re.Pattern):
+        if self._input_primary_split is None:
+            primary_split = [raw_input]
+        elif isinstance(self._input_primary_split, re.Pattern):
             primary_split = re.split(self._input_primary_split, raw_input)
         elif self._input_primary_split:
             primary_split = raw_input.split(self._input_primary_split)
