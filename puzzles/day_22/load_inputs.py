@@ -1,27 +1,8 @@
 from dataclasses import dataclass
 from typing import List, Tuple
 
+from utils.common_structures.planar_map import Location, parse_map_lines
 from utils.input_deformatter import InputDeformatter
-
-
-@dataclass
-class Located:
-    col: int
-    row: int
-
-
-@dataclass
-class Location(Located):
-    type: str
-
-    def is_rock(self) -> bool:
-        return self.type == "#"
-
-    def is_empty(self) -> bool:
-        return self.type == "."
-
-    def is_abyss(self) -> bool:
-        return self.type == " "
 
 
 class Movement:
@@ -55,22 +36,6 @@ def parse_directions(input_desc: str) -> List[Movement]:
     movement_list.pop()
 
     return movement_list
-
-
-def parse_map_lines(input_lines: str) -> List[Location]:
-    locations = []
-    actual_lines = input_lines.split("\n")
-    actual_lines = [line for line in actual_lines if line]
-
-    for row_index_minus_one, line in enumerate(actual_lines):
-        for col_index_minus_one, content in enumerate(line):
-            locations.append(Location(
-                col=col_index_minus_one + 1,
-                row=row_index_minus_one + 1,
-                type=content,
-            ))
-
-    return locations
 
 
 InputType = Tuple[List[Location], List[Movement]]

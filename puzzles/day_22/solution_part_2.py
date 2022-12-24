@@ -1,9 +1,10 @@
 from collections import defaultdict, deque
 from dataclasses import dataclass
-from typing import Deque, Dict, List, Tuple
+from typing import Deque, Dict, List, Optional, Tuple
 
-from puzzles.day_22.load_inputs import Located, Location, input_reader, InputType
+from puzzles.day_22.load_inputs import input_reader, InputType
 from puzzles.day_22.solution_part_1 import Direction, Map
+from utils.common_structures.planar_map import Located, Location, Position
 
 
 @dataclass
@@ -37,36 +38,14 @@ class CubedMap(Map):
         super().perform_step()
         self.state_history[(self.state.row, self.state.col)] = self.state.direction
 
-    def __repr__(self) -> None:
-        max_rows = max(self.tiles_by_row.keys())
-        max_cols = max(self.tiles_by_col.keys())
-
-        representation = ""
-
-        for row in range(max_rows + 1):
-            for col in range(max_cols + 1):
-                if (row, col) in self.state_history:
-                    representation += {
-                        Direction.RIGHT: ">",
-                        Direction.LEFT: "<",
-                        Direction.UP: "^",
-                        Direction.DOWN: "v",
-                    }[self.state_history[(row, col)]]
-                    continue
-
-                tile = self.tiles_by_loc.get((row, col))
-                if tile is None:
-                    representation += " "
-                elif tile.is_empty():
-                    representation += "."
-                elif tile.is_rock():
-                    representation += "#"
-                else:
-                    raise ValueError(tile.type)
-
-            representation += "\n"
-
-        return representation
+    def tile_special_repr(self, location: Position) -> Optional[str]:
+        if location in self.state_history:
+            return {
+                Direction.RIGHT: ">",
+                Direction.LEFT: "<",
+                Direction.UP: "^",
+                Direction.DOWN: "v",
+            }[self.state_history[location]]
 
     def facet_locations(self, locations: List[Location]) -> Dict[Tuple[int, int], int]:
         facetted_locations = {}
@@ -121,9 +100,14 @@ class CubedMap(Map):
         else:
             raise ValueError(next_facet, direction_shift)
 
-        next_wrapped = next(tile for tile in self.tiles_by_facet[next_facet] if self.relative(tile) == (next_relative_row, next_relative_col))
+        next_wrapped = next(
+            tile for tile in self.tiles_by_facet[next_facet] if self.relative(tile) == (
+                next_relative_row,
+                next_relative_col,
+            )
+        )
 
-        if next_wrapped.is_empty():
+        if next_wrapped.type == ".":
             self.state.direction = self.state.direction.shift(direction_shift)
 
         return next_wrapped

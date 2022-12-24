@@ -1,66 +1,30 @@
 from collections import deque
 from dataclasses import dataclass
-from enum import IntEnum
-from typing import Deque, Dict, Iterator, List, Optional, Tuple
+from typing import Deque, Iterator, List, Optional, Tuple
 
-from puzzles.day_22.load_inputs import Located, Location
 from puzzles.day_23.load_inputs import InputType, input_reader
+from utils.common_structures.planar_map import Direction, Located, Location, PlanarMap, Position
 
 
 @dataclass
 class Elf(Located):
-    intended_next_position: Tuple[int, int]
+    intended_next_position: Position
 
 
-class Direction(IntEnum):
-    NORTH = 0
-    SOUTH = 1
-    WEST = 2
-    EAST = 3
-
-    def shift(self, value: int) -> "Direction":
-        return Direction((self.value + value) % 4)
-
-
-class ElvesDanceMap:
+class ElvesDanceMap(PlanarMap):
     def __init__(self, tiles: List[Location]):
-        tiles = [tile for tile in tiles if not tile.is_abyss()]
-        self.tiles_by_loc: Dict[Tuple[int, int], Location] = {}
+        tiles = [tile for tile in tiles if tile.type != " "]
+        super().__init__(tiles)
         self.elves: Deque[Elf] = deque()
         self.direction_modifier = 0
 
         for tile in tiles:
-            self.tiles_by_loc[(tile.row, tile.col)] = tile
             if tile.type == "#":
                 self.elves.append(Elf(
                     intended_next_position=None,
                     row=tile.row,
                     col=tile.col,
                 ))
-
-    def __repr__(self) -> None:
-        min_row = min(row for row, col in self.tiles_by_loc.keys())
-        max_row = max(row for row, col in self.tiles_by_loc.keys())
-        min_col = min(col for row, col in self.tiles_by_loc.keys())
-        max_col = max(col for row, col in self.tiles_by_loc.keys())
-
-        representation = ""
-
-        for row in range(min_row, max_row + 1):
-            for col in range(min_col, max_col + 1):
-                tile = self.tiles_by_loc.get((row, col))
-                if tile is None:
-                    representation += " "
-                elif tile.is_empty():
-                    representation += "."
-                elif tile.is_rock():
-                    representation += "#"
-                else:
-                    raise ValueError(tile.type)
-
-            representation += "\n"
-
-        return representation
 
     def get_location(self, row: int, col: int) -> Location:
         location = self.tiles_by_loc.get((row, col), None)
@@ -86,21 +50,21 @@ class ElvesDanceMap:
 
     def direction_order(self) -> Iterator[Direction]:
         for direction in (
-            Direction.NORTH,
-            Direction.SOUTH,
-            Direction.WEST,
-            Direction.EAST
+            Direction.UP,
+            Direction.DOWN,
+            Direction.LEFT,
+            Direction.RIGHT
         ):
             yield direction.shift(self.direction_modifier)
 
     def jitter_in_direction(self, from_loc: Location, direc: Direction) -> List[Location]:
-        if direc == Direction.NORTH:
+        if direc == Direction.UP:
             return [self.get_location(from_loc.row - 1, from_loc.col + mod) for mod in (-1, 0, 1)]
-        elif direc == Direction.SOUTH:
+        elif direc == Direction.DOWN:
             return [self.get_location(from_loc.row + 1, from_loc.col + mod) for mod in (-1, 0, 1)]
-        elif direc == Direction.WEST:
+        elif direc == Direction.LEFT:
             return [self.get_location(from_loc.row + mod, from_loc.col - 1) for mod in (-1, 0, 1)]
-        elif direc == Direction.EAST:
+        elif direc == Direction.RIGHT:
             return [self.get_location(from_loc.row + mod, from_loc.col + 1) for mod in (-1, 0, 1)]
 
     def determine_intent(self, elf: Elf) -> Optional[Tuple[int, int]]:
@@ -110,7 +74,7 @@ class ElvesDanceMap:
 
         for direc in self.direction_order():
             locations_to_check = self.jitter_in_direction(elf, direc)
-            if all(loc.is_empty() for loc in locations_to_check):
+            if all(loc.type == "." for loc in locations_to_check):
                 possible_locations_by_prio.append(
                     (locations_to_check[1].row, locations_to_check[1].col)
                 )

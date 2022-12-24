@@ -1,6 +1,6 @@
 from typing import List
 
-from puzzles.day_22.load_inputs import Location, parse_map_lines
+from utils.common_structures.planar_map import Location, parse_map_lines
 from utils.input_deformatter import InputDeformatter
 
 

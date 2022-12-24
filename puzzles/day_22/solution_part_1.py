@@ -1,25 +1,8 @@
-from collections import defaultdict, deque
 from dataclasses import dataclass
-from enum import Enum
-from typing import Deque, Dict, List, Optional, Tuple
+from typing import List, Optional
 
-from puzzles.day_22.load_inputs import Located, Location, Movement, Turn, Walk, input_reader, InputType
-
-
-class Direction(int, Enum):
-    RIGHT = 0
-    DOWN = 1
-    LEFT = 2
-    UP = 3
-
-    def shift(self, clockwise_by: int) -> "Direction":
-        return Direction((self.value + clockwise_by) % 4)
-
-    def next_clockwise(self) -> "Direction":
-        return self.shift(1)
-
-    def next_counter_clockwise(self) -> "Direction":
-        return self.shift(3)
+from puzzles.day_22.load_inputs import InputType, Movement, Turn, Walk, input_reader
+from utils.common_structures.planar_map import Direction, Located, Location, PlanarMap
 
 
 @dataclass
@@ -27,18 +10,9 @@ class PersonState(Located):
     direction: Direction
 
 
-class Map:
+class Map(PlanarMap):
     def __init__(self, tiles: List[Location]):
-        self.tiles = [tile for tile in tiles if not tile.is_abyss()]
-
-        self.tiles_by_row: Dict[int, Deque[Location]] = defaultdict(deque)
-        self.tiles_by_col: Dict[int, Deque[Location]] = defaultdict(deque)
-        self.tiles_by_loc: Dict[Tuple[int, int], Location] = {}
-
-        for tile in self.tiles:
-            self.tiles_by_row[tile.row].append(tile)
-            self.tiles_by_col[tile.col].append(tile)
-            self.tiles_by_loc[(tile.row, tile.col)] = tile
+        super().__init__([tile for tile in tiles if not tile.type == " "])
 
         starting_col = min(tile.col for tile in self.tiles_by_row[1])
         self.state = PersonState(row=1, col=starting_col, direction=Direction.RIGHT)
@@ -70,9 +44,9 @@ class Map:
     def perform_step(self) -> None:
         next_tile = self.next_tile()
 
-        if next_tile.is_rock():
+        if next_tile.type == "#":
             pass
-        elif next_tile.is_empty():
+        elif next_tile.type == ".":
             self.state.row, self.state.col = next_tile.row, next_tile.col
         else:
             raise ValueError(next_tile.type)
