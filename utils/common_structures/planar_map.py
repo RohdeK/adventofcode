@@ -12,6 +12,9 @@ class Located:
     row: int
     col: int
 
+    def position(self) -> Position:
+        return self.row, self.col
+
 
 @dataclass
 class Location(Located):
@@ -70,6 +73,9 @@ class PlanarMap:
             representation += "\n"
 
         return representation
+
+    def get_location(self, row: int, col: int) -> Location:
+        return self.tiles_by_loc.get((row, col), None)
 
     def tile_special_repr(self, location: Position) -> Optional[str]:
         return None
