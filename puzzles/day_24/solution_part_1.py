@@ -17,8 +17,8 @@ class BlizzardMap(PlanarMap):
         starting_state: Position = (self.min_row, self.starting_col)
         self.target_state: Position = (self.max_row, self.ending_col)
 
-        self.possible_states = deque()
-        self.possible_states.append(starting_state)
+        self.possible_states = set()
+        self.possible_states.add(starting_state)
 
         self.time_passed = 0
 
@@ -35,23 +35,23 @@ class BlizzardMap(PlanarMap):
         return self.time_passed
 
     def next_round(self) -> bool:
+        self.time_passed += 1
+
         self.move_all_blizzards()
 
-        next_run_states = deque()
+        next_run_states = set()
 
         for state in self.possible_states:
             for location in self.list_moves(state):
                 if location == self.target_state:
                     return True
 
-                next_run_states.append(location)
+                next_run_states.add(location)
 
-            if self.tiles_by_loc.get(state) is None:
-                next_run_states.append(state)
+            if self.is_free(state):
+                next_run_states.add(state)
 
         self.possible_states = next_run_states
-
-        self.time_passed += 1
 
         return False
 
@@ -110,7 +110,12 @@ class BlizzardMap(PlanarMap):
         empties = []
 
         for position in self.surrounding_positions(based_on_state):
-            if self.tiles_by_loc.get(position) is None:
+            if position[0] < self.min_row:
+                continue
+            elif position[0] > self.max_row:
+                continue
+
+            if self.is_free(position):
                 empties.append(position)
 
         return empties
@@ -120,19 +125,19 @@ class BlizzardMap(PlanarMap):
         base_row, base_col = of_position
 
         return [
-            (base_row - 1, base_col - 1),
+            # (base_row - 1, base_col - 1),
             (base_row - 1, base_col),
-            (base_row - 1, base_col + 1),
+            # (base_row - 1, base_col + 1),
             (base_row, base_col - 1),
             (base_row, base_col + 1),
-            (base_row + 1, base_col - 1),
+            # (base_row + 1, base_col - 1),
             (base_row + 1, base_col),
-            (base_row + 1, base_col + 1),
+            # (base_row + 1, base_col + 1),
         ]
 
+    def is_free(self, position: Position) -> bool:
+        return not self.tiles_by_loc.get(position)
 
-    def move_to(self) -> List[Position]:
-        pass
 
 def calculate_solution(input_values: InputType) -> int:
     bliz = BlizzardMap(input_values[0])
