@@ -1,68 +1,29 @@
 from typing import Dict, List, Optional, Tuple
 
 from puzzles.day_05.load_inputs import Map, MapRange, input_reader, InputType
-
-
-class Range:
-    def __init__(self, from_value: int, range_value: int):
-        self.from_value = from_value
-        self.range_value = range_value
-
-    def __repr__(self):
-        return f"[{self.from_value}:{self.to_value}]"
-
-    @property
-    def to_value(self) -> int:
-        return self.from_value + self.range_value - 1
-
-    def overlap(self, other: "Range") -> Optional["Range"]:
-        if other.from_value < self.from_value:
-            if other.to_value < self.from_value:
-                return None
-            elif other.to_value <= self.to_value:
-                return Range(self.from_value, other.to_value - self.from_value + 1)
-            else:
-                return self
-        elif other.from_value <= self.to_value:
-            if other.to_value <= self.to_value:
-                return other
-            else:
-                return Range(other.from_value, self.to_value - other.from_value + 1)
-        else:
-            return None
-
-    def underlap(self, other: "Range") -> List["Range"]:
-        underlaps = []
-
-        if self.from_value < other.from_value:
-            range_val = min(
-                other.from_value - self.from_value,
-                self.range_value,
-            )
-            underlaps.append(Range(self.from_value, range_val))
-        if self.to_value > other.to_value:
-            max_start = max(
-                other.to_value + 1,
-                self.from_value,
-            )
-            underlaps.append(Range(max_start, self.to_value - max_start + 1))
-        return underlaps
+from utils.common_structures.num_range import NumRange
 
 
 class CoolerMapRange:
     def __init__(self, regular_range: MapRange):
-        self.source_range = Range(regular_range.source_start, regular_range.range_length)
-        self.dest_range = Range(regular_range.destination_start, regular_range.range_length)
+        self.source_range = NumRange(
+            from_=regular_range.source_start,
+            range_=regular_range.range_length,
+        )
+        self.dest_range = NumRange(
+            from_=regular_range.destination_start,
+            range_=regular_range.range_length,
+        )
 
-    def map_range(self, rng: Range) -> Tuple[Optional[Range], List[Range]]:
-        mappable_range = rng.overlap(self.source_range)
+    def map_range(self, rng: NumRange) -> Tuple[Optional[NumRange], List[NumRange]]:
+        mappable_range = rng.intersect(self.source_range)
         if mappable_range:
-            mappable_range = Range(
-                mappable_range.from_value + self.dest_range.from_value - self.source_range.from_value,
-                mappable_range.range_value,
+            mappable_range = NumRange(
+                from_=mappable_range.from_ + self.dest_range.from_ - self.source_range.from_,
+                range_=mappable_range.range_,
             )
 
-        unmappable_ranges = rng.underlap(self.source_range)
+        unmappable_ranges = rng.minus(self.source_range)
 
         return mappable_range, unmappable_ranges
 
@@ -73,7 +34,7 @@ class CoolerMap:
         self.to_type = regular_map.to_type
         self.ranges = [CoolerMapRange(r) for r in regular_map.ranges]
 
-    def map_range(self, rng: Range) -> List[Range]:
+    def map_range(self, rng: NumRange) -> List[NumRange]:
         ranges_solved = []
         ranges_to_solve = [rng]
 
@@ -89,7 +50,7 @@ class CoolerMap:
         return [*ranges_to_solve, *ranges_solved]
 
 
-def seed_to_location(seed_val: Range, maps_by_from_type: Dict[str, CoolerMap]) -> List[Range]:
+def seed_to_location(seed_val: NumRange, maps_by_from_type: Dict[str, CoolerMap]) -> List[NumRange]:
     current_type = "seed"
     current_values = [seed_val]
 
@@ -115,10 +76,10 @@ def calculate_solution(input_values: InputType) -> int:
     min_locations = []
 
     for seed_start, seed_range in zip(source_seed_ranges[::2], source_seed_ranges[1::2]):
-        rng = Range(seed_start, seed_range)
+        rng = NumRange(from_=seed_start, range_=seed_range)
         locs = seed_to_location(rng, maps_by_from_type)
 
-        min_locations.extend([l.from_value for l in locs])
+        min_locations.extend([lo.from_ for lo in locs])
 
     return min(min_locations)
 
