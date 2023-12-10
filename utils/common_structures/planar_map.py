@@ -15,6 +15,9 @@ class Located:
     def position(self) -> Position:
         return self.row, self.col
 
+    def __eq__(self, other: "Located") -> bool:
+        return self.row == other.row and self.col == other.col
+
 
 @dataclass
 class Location(Located):
@@ -50,7 +53,7 @@ class PlanarMap:
             self.tiles_by_col[tile.col].append(tile)
             self.tiles_by_loc[(tile.row, tile.col)] = tile
 
-    def __repr__(self) -> None:
+    def __repr__(self) -> str:
         min_row = min(self.tiles_by_row.keys())
         max_row = max(self.tiles_by_row.keys())
         min_col = min(self.tiles_by_col.keys())
@@ -76,6 +79,42 @@ class PlanarMap:
 
     def get_location(self, row: int, col: int) -> Location:
         return self.tiles_by_loc.get((row, col), None)
+
+    def get_location_north(self, loc: Located) -> Optional[Location]:
+        return self.tiles_by_loc.get((loc.row - 1, loc.col))
+
+    def get_location_south(self, loc: Located) -> Optional[Location]:
+        return self.tiles_by_loc.get((loc.row + 1, loc.col))
+
+    def get_location_west(self, loc: Located) -> Optional[Location]:
+        return self.tiles_by_loc.get((loc.row, loc.col - 1))
+
+    def get_location_east(self, loc: Located) -> Optional[Location]:
+        return self.tiles_by_loc.get((loc.row, loc.col + 1))
+
+    def get_location_northeast(self, loc: Located) -> Optional[Location]:
+        return self.tiles_by_loc.get((loc.row - 1, loc.col + 1))
+
+    def get_location_northwest(self, loc: Located) -> Optional[Location]:
+        return self.tiles_by_loc.get((loc.row - 1, loc.col - 1))
+
+    def get_location_southeast(self, loc: Located) -> Optional[Location]:
+        return self.tiles_by_loc.get((loc.row + 1, loc.col + 1))
+
+    def get_location_southwest(self, loc: Located) -> Optional[Location]:
+        return self.tiles_by_loc.get((loc.row + 1, loc.col - 1))
+
+    def surrounding(self, loc: Located) -> List[Location]:
+        return [tile for tile in (
+            self.get_location_north(loc),
+            self.get_location_northeast(loc),
+            self.get_location_east(loc),
+            self.get_location_southeast(loc),
+            self.get_location_south(loc),
+            self.get_location_southwest(loc),
+            self.get_location_west(loc),
+            self.get_location_northwest(loc),
+        ) if tile]
 
     def tile_special_repr(self, location: Position) -> Optional[str]:
         return None
