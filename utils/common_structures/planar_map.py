@@ -47,11 +47,13 @@ class PlanarMap:
         self.tiles_by_row: Dict[int, Deque[Location]] = defaultdict(deque)
         self.tiles_by_col: Dict[int, Deque[Location]] = defaultdict(deque)
         self.tiles_by_loc: Dict[Position, Location] = {}
+        self.tiles_by_type: Dict[str, Deque[Location]] = defaultdict(deque)
 
         for tile in self.tiles:
             self.tiles_by_row[tile.row].append(tile)
             self.tiles_by_col[tile.col].append(tile)
             self.tiles_by_loc[(tile.row, tile.col)] = tile
+            self.tiles_by_type[tile.type].append(tile)
 
     def __repr__(self) -> str:
         min_row = min(self.tiles_by_row.keys())
