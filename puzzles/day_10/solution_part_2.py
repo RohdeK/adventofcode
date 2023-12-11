@@ -71,39 +71,6 @@ def iter_cover_outers(pipe_map: NetworkMap) -> None:
         tiles_with_dot = remaining_tiles_with_dot
 
 
-def decide_inner_clusters(pipe_map: NetworkMap) -> None:
-    something_changed = True
-
-    while something_changed:
-        tiles_with_dot = [t for t in pipe_map.tiles if t.type == "."]
-
-        something_changed = False
-
-        for dot_tile in tiles_with_dot:
-            clustered_dots_to_check = [dot_tile]
-            cluster_dots_checked = []
-            dot_cluster_is_outside = False
-
-            while clustered_dots_to_check:
-                dot_tile = clustered_dots_to_check.pop()
-                cluster_dots_checked.append(dot_tile)
-
-                for tile in pipe_map.surrounding(dot_tile):
-                    if tile.type == ".":
-                        if tile not in cluster_dots_checked:
-                            clustered_dots_to_check.append(tile)
-
-                    elif not dot_cluster_is_outside and tile not in pipe_map.network:
-                        dot_cluster_is_outside = True
-
-            for tile in cluster_dots_checked:
-                tile.type = "O" if dot_cluster_is_outside else "I"
-                something_changed = True
-
-            if something_changed:
-                break
-
-
 def traverse_and_categorize(pipe_map: NetworkMap) -> None:
     row_diff = pipe_map.network[0].row - pipe_map.network[-1].row
     col_diff = pipe_map.network[0].col - pipe_map.network[-1].col
@@ -248,29 +215,59 @@ def traverse_and_categorize(pipe_map: NetworkMap) -> None:
                 dtile.type = "2"
 
 
+def infectious_covering(pipe_map: NetworkMap) -> None:
+    something_changed = True
+
+    tiles_with_dot = [t for t in pipe_map.tiles if t.type == "."]
+
+    while something_changed:
+        remaining_tiles_with_dot = []
+
+        something_changed = False
+
+        for tile in tiles_with_dot:
+            if any(t.type == "2" for t in pipe_map.surrounding(tile)):
+                tile.type = "2"
+                something_changed = True
+            elif any(t.type == "1" for t in pipe_map.surrounding(tile)):
+                tile.type = "1"
+                something_changed = True
+            else:
+                remaining_tiles_with_dot.append(tile)
+
+        tiles_with_dot = remaining_tiles_with_dot
+
+
+def convert_outside_category(pipe_map: NetworkMap) -> None:
+    outside_cat = "0"
+
+    for tile in pipe_map.tiles:
+        if tile.type in ("1", "2"):
+            if any(t.type == "O" for t in pipe_map.surrounding(tile)):
+                outside_cat = tile.type
+                break
+
+    for tile in pipe_map.tiles:
+        if tile.type == outside_cat:
+            tile.type = "O"
+
+
 def calculate_solution(input_values: InputType) -> int:
     pipe_map = NetworkMap(input_values[0])
 
     remove_junk_tiles(pipe_map)
 
-    # Mark all elements on the border or connected to another outsider as "O"
-    iter_cover_outers(pipe_map)
-
     # Walk the pipe and categorize left and right
     traverse_and_categorize(pipe_map)
 
-    # This is done for printing the beauty.
-    for tile in pipe_map.tiles:
-        if tile.type == ".":
-            tile.type = "X"
-        elif tile.type != "1" and tile.type != "2" and tile.position() not in pipe_map.network_map:
-            tile.type = " "
+    # Mark all elements on the border or connected to another outsider as "O"
+    iter_cover_outers(pipe_map)
 
-    # Colorful print for inspection
-    print(pipe_map)
+    infectious_covering(pipe_map)
 
-    # Using that we saw that "2" is "inside" and all remaining "X"s are in a middle region.
-    return sum(tile.type in ("X", "2") for tile in pipe_map.tiles)
+    convert_outside_category(pipe_map)
+
+    return sum(tile.type in ("1", "2") for tile in pipe_map.tiles)
 
 
 if __name__ == "__main__":
