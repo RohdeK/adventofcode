@@ -121,6 +121,12 @@ class PlanarMap:
     def tile_special_repr(self, location: Position) -> Optional[str]:
         return None
 
+    def row_indices(self) -> List[int]:
+        return sorted(self.tiles_by_row.keys())
+
+    def col_indices(self) -> List[int]:
+        return sorted(self.tiles_by_col.keys())
+
 
 def parse_map_lines(input_lines: str) -> List[Location]:
     locations = []
