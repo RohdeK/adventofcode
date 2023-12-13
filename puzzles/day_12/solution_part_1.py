@@ -45,36 +45,48 @@ def possible_slots_in_subseg(segment: str, dmg_num: int) -> Set[str]:
     return configurations
 
 
+SEGMENTATION_CACHE = {}
+
+
 def possible_segmentations(segment: str, dmgs: List[int]) -> Set[str]:
+    global SEGMENTATION_CACHE
+    key = segment + ":" + ",".join(map(str, dmgs))
+
+    if key in SEGMENTATION_CACHE:
+        return SEGMENTATION_CACHE[key]
+
     if sum(dmgs) + len(dmgs) - 1 > len(segment):
-        return set()
+        all_segs = set()
 
-    if segment.count("#") > sum(dmgs):
-        return set()
+    elif segment.count("#") > sum(dmgs):
+        all_segs = set()
 
-    if len(dmgs) == 1:
-        return possible_slots_in_subseg(segment, dmgs[0])
+    elif len(dmgs) == 1:
+        all_segs = possible_slots_in_subseg(segment, dmgs[0])
 
-    if len(dmgs) == 0:
-        return {segment.replace("?", ".")}
+    elif len(dmgs) == 0:
+        all_segs = {segment.replace("?", ".")}
 
-    all_segs = set()
+    else:
+        all_segs = set()
 
-    for idx, dmg in enumerate(dmgs):
-        segmentation_points = list(range(dmg, len(segment) - sum(dmgs[idx + 1 :])))
-        segmentation_points = [s for s in segmentation_points if segment[s] == "?"]
+        for idx, dmg in enumerate(dmgs):
+            segmentation_points = list(range(dmg, len(segment) - sum(dmgs[idx + 1 :])))
+            segmentation_points = [s for s in segmentation_points if segment[s] == "?"]
 
-        for segpoint in segmentation_points:
-            per_segment_subs = possible_slots_in_subseg(segment[:segpoint], dmg)
+            for segpoint in segmentation_points:
+                per_segment_subs = possible_slots_in_subseg(segment[:segpoint], dmg)
 
-            for followup_segs in possible_segmentations(
-                segment[segpoint + 1 :], dmgs[idx + 1 :]
-            ):
-                for init_seg in per_segment_subs:
-                    all_segs.add(init_seg + "." + followup_segs)
+                for followup_segs in possible_segmentations(
+                    segment[segpoint + 1 :], dmgs[idx + 1 :]
+                ):
+                    for init_seg in per_segment_subs:
+                        all_segs.add(init_seg + "." + followup_segs)
 
-        # Fucked up, needs to run only once since recursive
-        break
+            # Fucked up, needs to run only once since recursive
+            break
+
+    SEGMENTATION_CACHE[key] = all_segs
 
     return all_segs
 
@@ -99,14 +111,14 @@ def num_segmentations(seg_desc: str) -> Tuple[int, int]:
     return min_split_count, max_split_count
 
 
-def possible_dist_count(row_desc: str, dmg_groups: List[int]) -> int:
-    dots_at = [idx for idx, char in enumerate(row_desc) if char == "."]
+def possible_allocations(row_desc: str, dmg_groups: List[int]) -> List[List[List[int]]]:
     segments = [seg for seg in row_desc.split(".") if seg]
     subsegs = [num_segmentations(seg) for seg in segments]
     ranges = [list(range(mins, maxs + 1)) for mins, maxs in subsegs]
 
     possible_allocs = []
     for distro in itertools.product(*ranges):
+
         if sum(distro) != len(dmg_groups):
             continue
 
@@ -118,36 +130,36 @@ def possible_dist_count(row_desc: str, dmg_groups: List[int]) -> int:
 
         possible_allocs.append(dmg_distro)
 
-    total_possibilities = set()
+    return possible_allocs
+
+
+def possible_dist_count(row_desc: str, dmg_groups: List[int]) -> int:
+    segments = [seg for seg in row_desc.split(".") if seg]
+
+    possible_allocs = possible_allocations(row_desc, dmg_groups)
+
+    total_num_possibilities = 0
 
     for alloc in possible_allocs:
-        alloc_possibilities = {""}
+        num_possibilities = 1
+
+        any_impossible = False
+
+        for seg, subs in zip(segments, alloc):
+            if len(seg) < sum(subs) + len(subs) - 1:
+                any_impossible = True
+
+        if any_impossible:
+            continue
+
         for seg, subs in zip(segments, alloc):
             follow_up_segs = possible_segmentations(seg, subs)
 
-            alloc_possibilities = {
-                stem + follow_up
-                for stem, follow_up in itertools.product(
-                    alloc_possibilities, follow_up_segs
-                )
-            }
+            num_possibilities *= len(follow_up_segs)
 
-        total_possibilities = total_possibilities.union(alloc_possibilities)
+        total_num_possibilities += num_possibilities
 
-        assert all(len(t) == sum(len(s) for s in segments) for t in alloc_possibilities)
-
-    total_possibilities_revised = set()
-
-    for t in total_possibilities:
-        char_list = list(t)
-        for x in dots_at:
-            char_list.insert(x, ".")
-
-        assert len(char_list) == len(row_desc)
-
-        total_possibilities_revised.add("".join(char_list))
-
-    return len(total_possibilities_revised)
+    return total_num_possibilities
 
 
 def calculate_solution(input_values: InputType) -> int:
