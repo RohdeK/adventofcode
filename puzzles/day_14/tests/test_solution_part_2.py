@@ -18,6 +18,6 @@ O.#..O.#.#
     
     test_input = input_reader.load(raw_test_input)
 
-    solution = calculate_solution(test_input)
+    solution = calculate_solution(test_input, 1_000_000_000)
 
     assert solution == 64
