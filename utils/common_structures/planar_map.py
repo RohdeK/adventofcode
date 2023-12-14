@@ -106,6 +106,18 @@ class PlanarMap:
     def get_location_southwest(self, loc: Located) -> Optional[Location]:
         return self.tiles_by_loc.get((loc.row + 1, loc.col - 1))
 
+    def get_location_to(self, loc: Located, direction: str) -> Optional[Location]:
+        return {
+            "north": self.get_location_north,
+            "northwest": self.get_location_northwest,
+            "west": self.get_location_west,
+            "southwest": self.get_location_southwest,
+            "south": self.get_location_south,
+            "southeast": self.get_location_southeast,
+            "east": self.get_location_east,
+            "northeast": self.get_location_northeast,
+        }[direction](loc)
+
     def surrounding(self, loc: Located) -> List[Location]:
         return [tile for tile in (
             self.get_location_north(loc),

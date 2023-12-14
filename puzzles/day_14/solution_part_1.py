@@ -3,21 +3,21 @@ from utils.common_structures.planar_map import Location, PlanarMap
 
 
 class BoulderMap(PlanarMap):
-    def roll_north(self) -> None:
+    def roll(self, direction: str) -> None:
         for i in sorted(self.tiles_by_row.keys()):
             for tile in self.tiles_by_row[i]:
                 if tile.type == "O":
-                    self.push_tile_north(tile)
+                    self.push_tile(tile, direction)
 
-    def push_tile_north(self, tile: Location) -> None:
+    def push_tile(self, tile: Location, direction: str) -> None:
         iter_tile = tile
         still_checking = True
 
         while still_checking:
-            northern_tile = self.get_location_north(iter_tile)
+            next_tile = self.get_location_to(iter_tile, direction)
 
-            if northern_tile and northern_tile.type == ".":
-                iter_tile = northern_tile
+            if next_tile and next_tile.type == ".":
+                iter_tile = next_tile
             else:
                 still_checking = False
 
@@ -44,7 +44,7 @@ class BoulderMap(PlanarMap):
 def calculate_solution(input_values: InputType) -> int:
     bmap = BoulderMap(input_values[0])
 
-    bmap.roll_north()
+    bmap.roll("north")
 
     return bmap.sum_weights()
 
