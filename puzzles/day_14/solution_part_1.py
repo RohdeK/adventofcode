@@ -1,13 +1,28 @@
+from typing import Iterator
+
 from puzzles.day_14.load_inputs import input_reader, InputType
 from utils.common_structures.planar_map import Location, PlanarMap
 
 
 class BoulderMap(PlanarMap):
     def roll(self, direction: str) -> None:
-        for i in sorted(self.tiles_by_row.keys()):
-            for tile in self.tiles_by_row[i]:
-                if tile.type == "O":
-                    self.push_tile(tile, direction)
+        for tile in self.iter_optimal_direction(direction):
+            if tile.type == "O":
+                self.push_tile(tile, direction)
+
+    def iter_optimal_direction(self, direction: str) -> Iterator[Location]:
+        if direction == "north":
+            for i in sorted(self.tiles_by_row.keys()):
+                yield from self.tiles_by_row[i]
+        elif direction == "south":
+            for i in sorted(self.tiles_by_row.keys(), reverse=True):
+                yield from self.tiles_by_row[i]
+        elif direction == "west":
+            for i in sorted(self.tiles_by_col.keys()):
+                yield from self.tiles_by_col[i]
+        elif direction == "east":
+            for i in sorted(self.tiles_by_col.keys(), reverse=True):
+                yield from self.tiles_by_col[i]
 
     def push_tile(self, tile: Location, direction: str) -> None:
         iter_tile = tile
