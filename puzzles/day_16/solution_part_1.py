@@ -12,6 +12,7 @@ class MirrorMap(PlanarMap):
         self.equivalence_entry_points: Dict[Position, List[Tuple[int, str]]] = defaultdict(list)
         self.equivalence_exit_points: Dict[int, List[Tuple[Location, str]]] = defaultdict(list)
         self.equivalence_classes_by_loc: Dict[Position, List[int]] = defaultdict(list)
+        self.with_debug = False
         self._build_equivalence_classes()
 
     def _build_equivalence_classes(self) -> None:
@@ -34,6 +35,7 @@ class MirrorMap(PlanarMap):
         for row in self.tiles_by_row.values():
             curr_equiv_class = []
             tiles_to_cover = [tile for tile in row]
+            self.equivalence_entry_points[row[0].position()].append((equiv_index, "west"))
 
             while tiles_to_cover:
                 tile = tiles_to_cover.pop(0)
@@ -69,9 +71,12 @@ class MirrorMap(PlanarMap):
             if curr_equiv_class:
                 finalize_equiv_class()
 
+            self.equivalence_entry_points[row[-1].position()].append((equiv_index - 1, "east"))
+
         for col in self.tiles_by_col.values():
             curr_equiv_class = []
             tiles_to_cover = [tile for tile in col]
+            self.equivalence_entry_points[col[0].position()].append((equiv_index, "north"))
 
             while tiles_to_cover:
                 tile = tiles_to_cover.pop(0)
@@ -107,6 +112,8 @@ class MirrorMap(PlanarMap):
             if curr_equiv_class:
                 finalize_equiv_class()
 
+            self.equivalence_entry_points[col[-1].position()].append((equiv_index - 1, "south"))
+
     def get_energized_locations(self, entry: Position, direction: str) -> Set[Position]:
         start_class = next(cls for cls, direc in self.equivalence_entry_points[entry] if direc == direction)
 
@@ -116,6 +123,11 @@ class MirrorMap(PlanarMap):
         while classes_to_check:
             curr_equiv_class = classes_to_check.pop()
             equivalence_classes.add(curr_equiv_class)
+
+            if self.with_debug:
+                for loc in self.equivalence_classes[curr_equiv_class]:
+                    loc.type = "#"
+                print(self)
 
             for loc, exit_direction in self.equivalence_exit_points[curr_equiv_class]:
                 for equiv, entry_direction in self.equivalence_entry_points[loc.position()]:
