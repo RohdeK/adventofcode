@@ -55,6 +55,9 @@ class PlanarMap:
             self.tiles_by_loc[(tile.row, tile.col)] = tile
             self.tiles_by_type[tile.type].append(tile)
 
+        self.max_row = max(self.tiles_by_row.keys())
+        self.max_col = max(self.tiles_by_col.keys())
+
     def __repr__(self) -> str:
         min_row = min(self.tiles_by_row.keys())
         max_row = max(self.tiles_by_row.keys())
