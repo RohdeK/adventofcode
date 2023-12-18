@@ -31,7 +31,7 @@ def remove_junk_tiles(pipe_map: NetworkMap) -> None:
             tile.type = "."
 
 
-def iter_cover_outers(pipe_map: NetworkMap) -> None:
+def iter_cover_outers(pipe_map: PlanarMap) -> None:
     something_changed = False
 
     for tile in pipe_map.tiles_by_row[min(pipe_map.tiles_by_row.keys())]:
