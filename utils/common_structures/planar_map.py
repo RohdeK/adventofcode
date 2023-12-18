@@ -142,6 +142,11 @@ class PlanarMap:
     def col_indices(self) -> List[int]:
         return sorted(self.tiles_by_col.keys())
 
+    def change_type(self, loc: Location, to_type: str) -> None:
+        self.tiles_by_type[loc.type].remove(loc)
+        self.tiles_by_type[to_type].append(loc)
+        loc.type = to_type
+
 
 def parse_map_lines(input_lines: str) -> List[Location]:
     locations = []
