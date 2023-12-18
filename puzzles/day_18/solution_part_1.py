@@ -69,6 +69,8 @@ def calculate_solution(input_values: InputType) -> int:
     # Using old solver
     iter_cover_outers(trench_map)
 
+    print(trench_map)
+
     return sum(t.type != "O" for t in trench_map.tiles)
 
 
