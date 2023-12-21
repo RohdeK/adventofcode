@@ -30,6 +30,9 @@ class InputDeformatter(Generic[T]):
         self._strip_secondary_split = strip_secondary_split
 
     def load(self, raw_input: str) -> T:
+        if raw_input.strip() == "":
+            raise RuntimeError("Input is empty.")
+
         output_values = []
         current_bucket = output_values
 
