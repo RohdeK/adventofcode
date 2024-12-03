@@ -55,6 +55,9 @@ class InputDeformatter(Generic[T]):
 
                 current_bucket.append(line_result)
 
+        if self._input_primary_split is None:
+            return output_values[0]
+
         return output_values
 
     def _primary_split(self, raw_input: str) -> List[str]:
