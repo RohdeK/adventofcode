@@ -1,7 +1,7 @@
 from collections import defaultdict, deque
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Deque, Dict, List, Optional, Tuple
+from typing import Deque, Dict, List, Optional, Self, Tuple
 
 
 Position = Tuple[int, int]
@@ -23,12 +23,19 @@ class Located:
 class Location(Located):
     type: str
 
+    def copy(self) -> "Location":
+        return Location(
+            row=self.row,
+            col=self.col,
+            type=self.type,
+        )
+
 
 class Direction(IntEnum):
     UP = 0
-    DOWN = 1
-    LEFT = 2
-    RIGHT = 3
+    RIGHT = 1
+    DOWN = 2
+    LEFT = 3
 
     def shift(self, value: int) -> "Direction":
         return Direction((self.value + value) % 4)
@@ -38,6 +45,23 @@ class Direction(IntEnum):
 
     def next_counter_clockwise(self) -> "Direction":
         return self.shift(3)
+
+    def to_tile_rep(self) -> str:
+        return {
+            Direction.LEFT: "<",
+            Direction.RIGHT: ">",
+            Direction.DOWN: "v",
+            Direction.UP: "^",
+        }[self]
+
+    @classmethod
+    def from_tile_rep(cls, tile_rep: str) -> "Direction":
+        return {
+            "<": Direction.LEFT,
+            ">": Direction.RIGHT,
+            "v": Direction.DOWN,
+            "^": Direction.UP,
+        }[tile_rep]
 
 
 class PlanarMap:
@@ -82,6 +106,9 @@ class PlanarMap:
 
         return representation
 
+    def splice(self) -> Self:
+        return self.__class__([tile.copy() for tile in self.tiles])
+
     def get_location(self, row: int, col: int) -> Location:
         return self.tiles_by_loc.get((row, col), None)
 
@@ -121,6 +148,14 @@ class PlanarMap:
             "northeast": self.get_location_northeast,
         }[direction](loc)
 
+    def get_location_dir(self, loc: Located, direction: Direction) -> Optional[Location]:
+        return {
+            Direction.UP: self.get_location_north,
+            Direction.DOWN: self.get_location_south,
+            Direction.LEFT: self.get_location_west,
+            Direction.RIGHT: self.get_location_east,
+        }[direction](loc)
+
     def surrounding(self, loc: Located) -> List[Location]:
         return [tile for tile in (
             self.get_location_north(loc),
@@ -146,6 +181,16 @@ class PlanarMap:
         self.tiles_by_type[loc.type].remove(loc)
         self.tiles_by_type[to_type].append(loc)
         loc.type = to_type
+
+    def get_one_by_type(self, by_type: str) -> Optional[Location]:
+        tiles = self.tiles_by_type.get(by_type, [])
+
+        if len(tiles) == 0:
+            return None
+        elif len(tiles) == 1:
+            return tiles[0]
+        else:
+            raise RuntimeError(f"More than 1 tiles for {by_type} found: {tiles}.")
 
 
 def parse_map_lines(input_lines: str) -> List[Location]:
