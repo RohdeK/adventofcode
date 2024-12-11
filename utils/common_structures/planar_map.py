@@ -156,16 +156,16 @@ class PlanarMap:
             Direction.RIGHT: self.get_location_east,
         }[direction](loc)
 
-    def surrounding(self, loc: Located) -> List[Location]:
+    def surrounding(self, loc: Located, including_diagonals: bool = True) -> List[Location]:
         return [tile for tile in (
             self.get_location_north(loc),
-            self.get_location_northeast(loc),
+            self.get_location_northeast(loc) if including_diagonals else None,
             self.get_location_east(loc),
-            self.get_location_southeast(loc),
+            self.get_location_southeast(loc) if including_diagonals else None,
             self.get_location_south(loc),
-            self.get_location_southwest(loc),
+            self.get_location_southwest(loc) if including_diagonals else None,
             self.get_location_west(loc),
-            self.get_location_northwest(loc),
+            self.get_location_northwest(loc) if including_diagonals else None,
         ) if tile]
 
     def tile_special_repr(self, location: Position) -> Optional[str]:
