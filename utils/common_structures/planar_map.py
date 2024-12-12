@@ -23,6 +23,9 @@ class Located:
 class Location(Located):
     type: str
 
+    def __repr__(self):
+        return f"({self.row}, {self.col})[{self.type}]"
+
     def copy(self) -> "Location":
         return Location(
             row=self.row,
