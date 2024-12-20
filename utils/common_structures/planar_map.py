@@ -101,7 +101,7 @@ class PlanarMap:
                 if tile_rep is not None:
                     representation += tile_rep
                 elif tile is None:
-                    representation += " "
+                    representation += "."
                 else:
                     representation += tile.type
 
