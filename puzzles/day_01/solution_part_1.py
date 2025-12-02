@@ -1,5 +1,3 @@
-from contextlib import nullcontext
-
 from puzzles.day_01.load_inputs import input_reader, InputType
 
 
@@ -11,7 +9,6 @@ def calculate_solution(input_values: InputType) -> int:
         rl, dial = i[0], i[1:]
         dial = int(dial)
 
-        circums = dial // 100
         residual = dial % 100
 
         if rl == "L":
@@ -26,8 +23,6 @@ def calculate_solution(input_values: InputType) -> int:
 
         if starting == 0:
             nulltimes += 1
-
-        # nulltimes += circums
 
     return nulltimes
 

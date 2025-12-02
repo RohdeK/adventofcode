@@ -1,5 +1,3 @@
-from signal import valid_signals
-
 from puzzles.day_02.load_inputs import input_reader, InputType
 
 
