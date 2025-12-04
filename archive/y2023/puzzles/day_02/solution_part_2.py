@@ -2,7 +2,7 @@ from functools import reduce
 from typing import Dict, List
 
 
-from puzzles.day_02.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_02.load_inputs import input_reader, InputType
 
 
 def calculate_solution(input_values: InputType) -> int:

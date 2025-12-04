@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from puzzles.day_05.load_inputs import Map, input_reader, InputType
+from archive.y2023.puzzles.day_05.load_inputs import Map, input_reader, InputType
 
 
 def seed_to_location(seed_val: int, maps_by_from_type: Dict[str, Map]) -> int:

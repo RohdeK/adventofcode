@@ -1,7 +1,7 @@
 import itertools
 from typing import List, Set, Tuple
 
-from puzzles.day_12.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_12.load_inputs import input_reader, InputType
 
 
 def possible_slots_in_subseg(segment: str, dmg_num: int) -> Set[str]:

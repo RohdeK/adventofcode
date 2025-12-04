@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-from puzzles.day_19.load_inputs import (
+from archive.y2023.puzzles.day_19.load_inputs import (
     Condition,
     Decider,
     LargerCondition,

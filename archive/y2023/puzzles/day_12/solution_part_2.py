@@ -2,8 +2,8 @@ from datetime import datetime
 from typing import List, Tuple
 import multiprocessing
 
-from puzzles.day_12.load_inputs import input_reader, InputType
-from puzzles.day_12.solution_part_1 import possible_dist_count
+from archive.y2023.puzzles.day_12.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_12.solution_part_1 import possible_dist_count
 
 
 def sub_solute(sub_set_1: str, sub_set_2: str, dmg_group_dex: List[int]) -> int:

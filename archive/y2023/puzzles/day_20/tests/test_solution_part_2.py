@@ -1,5 +1,5 @@
-from puzzles.day_20.load_inputs import input_reader
-from puzzles.day_20.solution_part_1 import ConjunctionModule, FlipFlopModule, Orchestrator
+from archive.y2023.puzzles.day_20.load_inputs import input_reader
+from archive.y2023.puzzles.day_20.solution_part_1 import ConjunctionModule, FlipFlopModule, Orchestrator
 
 
 def test_example():

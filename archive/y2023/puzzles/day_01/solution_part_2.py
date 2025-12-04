@@ -1,5 +1,5 @@
-from puzzles.day_01.load_inputs import input_reader, InputType
-from puzzles.day_01.solution_part_1 import calculate_solution as calculate_solution_1
+from archive.y2023.puzzles.day_01.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_01.solution_part_1 import calculate_solution as calculate_solution_1
 
 DIGITS = {
     "zero": "0",

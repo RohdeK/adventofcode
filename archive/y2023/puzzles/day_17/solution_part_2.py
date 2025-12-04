@@ -1,4 +1,4 @@
-from puzzles.day_17.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_17.load_inputs import input_reader, InputType
 
 
 def calculate_solution(input_values: InputType) -> int:

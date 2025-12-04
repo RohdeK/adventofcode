@@ -3,7 +3,7 @@ from collections import defaultdict
 from functools import reduce
 from typing import Dict, Iterator
 
-from puzzles.day_08.load_inputs import Locator, input_reader, InputType
+from archive.y2023.puzzles.day_08.load_inputs import Locator, input_reader, InputType
 
 
 class FastForward:

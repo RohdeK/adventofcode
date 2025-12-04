@@ -1,7 +1,7 @@
 import math
 
-from puzzles.day_06.load_inputs import input_reader, InputType
-from puzzles.day_06.solution_part_1 import RaceSpec
+from archive.y2023.puzzles.day_06.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_06.solution_part_1 import RaceSpec
 
 
 def num_winning_moves(race: RaceSpec) -> int:

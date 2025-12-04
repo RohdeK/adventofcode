@@ -1,7 +1,7 @@
 from collections import defaultdict
 from functools import reduce
 
-from puzzles.day_03.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_03.load_inputs import input_reader, InputType
 
 
 def is_star_at(i: int, j: int, values: InputType) -> str:

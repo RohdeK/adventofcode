@@ -1,6 +1,6 @@
 from typing import Iterator
 
-from puzzles.day_14.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_14.load_inputs import input_reader, InputType
 from utils.common_structures.planar_map import Location, PlanarMap
 
 

@@ -2,7 +2,7 @@ from collections import deque
 from enum import Enum
 from typing import Deque, Dict, List, Optional, Tuple
 
-from puzzles.day_20.load_inputs import ModuleConfiguration, input_reader, InputType
+from archive.y2023.puzzles.day_20.load_inputs import ModuleConfiguration, input_reader, InputType
 
 
 class Signal(Enum):

@@ -1,7 +1,7 @@
 import itertools
 from typing import List, Tuple
 
-from puzzles.day_11.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_11.load_inputs import input_reader, InputType
 from utils.common_structures.planar_map import Location, PlanarMap
 
 

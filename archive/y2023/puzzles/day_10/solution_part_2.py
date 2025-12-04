@@ -1,7 +1,7 @@
 from typing import Optional
 
-from puzzles.day_10.load_inputs import input_reader, InputType
-from puzzles.day_10.solution_part_1 import build_network
+from archive.y2023.puzzles.day_10.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_10.solution_part_1 import build_network
 from utils.common_structures.planar_map import PlanarMap, Position
 
 

@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-from puzzles.day_21.load_inputs import input_reader, InputType
-from puzzles.day_21.solution_part_1 import GardenMap
+from archive.y2023.puzzles.day_21.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_21.solution_part_1 import GardenMap
 from utils.common_structures.planar_map import Location, PlanarMap, Position
 
 

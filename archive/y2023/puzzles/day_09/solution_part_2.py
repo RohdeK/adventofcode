@@ -1,6 +1,6 @@
 from typing import List
 
-from puzzles.day_09.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_09.load_inputs import input_reader, InputType
 
 
 def alternating_sum(values: List[int]) -> int:

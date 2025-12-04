@@ -1,5 +1,5 @@
-from puzzles.day_14.load_inputs import input_reader, InputType
-from puzzles.day_14.solution_part_1 import BoulderMap
+from archive.y2023.puzzles.day_14.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_14.solution_part_1 import BoulderMap
 from utils.common_structures.planar_map import parse_map_lines
 
 

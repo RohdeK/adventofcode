@@ -1,6 +1,6 @@
 from typing import List
 
-from puzzles.day_03.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_03.load_inputs import input_reader, InputType
 
 
 def is_symbol_at(i: int, j: int, values: InputType) -> str:

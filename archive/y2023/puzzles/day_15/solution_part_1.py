@@ -1,4 +1,4 @@
-from puzzles.day_15.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_15.load_inputs import input_reader, InputType
 
 
 def hash_string(value: str) -> int:

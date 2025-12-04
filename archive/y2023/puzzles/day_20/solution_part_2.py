@@ -1,8 +1,8 @@
 from functools import reduce
 
-from puzzles.day_08.solution_part_2 import lcm
-from puzzles.day_20.load_inputs import input_reader, InputType
-from puzzles.day_20.solution_part_1 import Module, Orchestrator, Signal
+from archive.y2023.puzzles.day_08.solution_part_2 import lcm
+from archive.y2023.puzzles.day_20.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_20.solution_part_1 import Module, Orchestrator, Signal
 
 
 class Finished(Exception):

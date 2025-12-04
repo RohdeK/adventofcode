@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-from puzzles.day_18.load_inputs import InputType, input_reader
+from archive.y2023.puzzles.day_18.load_inputs import InputType, input_reader
 from utils.common_structures.planar_map import Location
 
 

@@ -1,5 +1,5 @@
-from puzzles.day_07.load_inputs import input_reader, InputType
-from puzzles.day_07.solution_part_1 import HandType
+from archive.y2023.puzzles.day_07.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_07.solution_part_1 import HandType
 
 
 class Hand:

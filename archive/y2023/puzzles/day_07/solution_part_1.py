@@ -1,6 +1,6 @@
 from enum import Enum
 
-from puzzles.day_07.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_07.load_inputs import input_reader, InputType
 
 
 class HandType(Enum):

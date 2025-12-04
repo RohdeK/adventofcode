@@ -1,5 +1,5 @@
-from puzzles.day_16.load_inputs import input_reader, InputType
-from puzzles.day_16.solution_part_1 import MirrorMap
+from archive.y2023.puzzles.day_16.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_16.solution_part_1 import MirrorMap
 
 
 def calculate_solution(input_values: InputType) -> int:

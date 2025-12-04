@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from functools import reduce
 from typing import Iterable, List
 
-from puzzles.day_06.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_06.load_inputs import input_reader, InputType
 
 
 @dataclass

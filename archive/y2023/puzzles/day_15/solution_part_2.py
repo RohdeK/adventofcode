@@ -1,8 +1,8 @@
 from collections import defaultdict, deque
 from typing import Deque, Dict, List, Tuple
 
-from puzzles.day_15.load_inputs import input_reader, InputType
-from puzzles.day_15.solution_part_1 import hash_string
+from archive.y2023.puzzles.day_15.load_inputs import input_reader, InputType
+from archive.y2023.puzzles.day_15.solution_part_1 import hash_string
 
 
 class BoxCollection:

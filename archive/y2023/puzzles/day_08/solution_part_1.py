@@ -1,6 +1,6 @@
 from typing import Dict
 
-from puzzles.day_08.load_inputs import Locator, input_reader, InputType
+from archive.y2023.puzzles.day_08.load_inputs import Locator, input_reader, InputType
 
 
 def calculate_solution(input_values: InputType) -> int:

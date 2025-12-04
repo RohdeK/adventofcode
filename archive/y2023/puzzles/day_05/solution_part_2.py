@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional, Tuple
 
-from puzzles.day_05.load_inputs import Map, MapRange, input_reader, InputType
+from archive.y2023.puzzles.day_05.load_inputs import Map, MapRange, input_reader, InputType
 from utils.common_structures.num_range import NumRange
 
 
