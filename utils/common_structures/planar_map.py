@@ -1,7 +1,7 @@
 from collections import defaultdict, deque
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Deque, Dict, List, Optional, Self, Tuple
+from typing import Deque, Dict, Iterator, List, Optional, Self, Tuple
 
 
 Position = Tuple[int, int]
@@ -194,6 +194,9 @@ class PlanarMap:
             return tiles[0]
         else:
             raise RuntimeError(f"More than 1 tiles for {by_type} found: {tiles}.")
+
+    def iter_by_type(self, by_type: str) -> Iterator[Location]:
+        yield from self.tiles_by_type.get(by_type, [])
 
 
 def parse_map_lines(input_lines: str) -> List[Location]:
