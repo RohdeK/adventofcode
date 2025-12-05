@@ -2,8 +2,8 @@ from bisect import bisect
 from collections import deque
 from typing import Optional
 
-from puzzles.day_16.load_inputs import input_reader, InputType
-from puzzles.day_16.solution_part_1 import Finished, RaceMap
+from archive.y2024.puzzles.day_16.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_16.solution_part_1 import Finished, RaceMap
 from utils.common_structures.planar_map import Location
 
 

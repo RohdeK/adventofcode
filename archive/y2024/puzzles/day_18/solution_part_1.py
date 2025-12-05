@@ -1,7 +1,7 @@
 import math
 from collections import defaultdict
 
-from puzzles.day_18.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_18.load_inputs import input_reader, InputType
 from utils.common_structures.planar_map import Location, PlanarMap, Position
 
 

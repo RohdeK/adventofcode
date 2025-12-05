@@ -1,5 +1,5 @@
-from puzzles.day_05.load_inputs import input_reader, InputType
-from puzzles.day_05.solution_part_1 import satisfies
+from archive.y2024.puzzles.day_05.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_05.solution_part_1 import satisfies
 
 
 def fix(sequence: list[int], rules: list[tuple[int, int]]) -> list[int]:

@@ -1,4 +1,4 @@
-from puzzles.day_07.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_07.load_inputs import input_reader, InputType
 
 
 def can_be_calculated(target_value: int, components: list[int]) -> bool:

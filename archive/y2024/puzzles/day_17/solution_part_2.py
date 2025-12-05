@@ -1,5 +1,5 @@
-from puzzles.day_17.load_inputs import input_reader, InputType
-from puzzles.day_17.solution_part_1 import Computer
+from archive.y2024.puzzles.day_17.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_17.solution_part_1 import Computer
 
 
 class Inconsistent(Exception):

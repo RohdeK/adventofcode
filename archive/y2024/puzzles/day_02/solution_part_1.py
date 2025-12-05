@@ -1,4 +1,4 @@
-from puzzles.day_02.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_02.load_inputs import input_reader, InputType
 
 
 def is_safe(report: list[int]) -> bool:

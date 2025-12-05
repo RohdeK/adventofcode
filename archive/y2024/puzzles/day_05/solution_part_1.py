@@ -1,4 +1,4 @@
-from puzzles.day_05.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_05.load_inputs import input_reader, InputType
 
 
 def satisfies(sequence: list[int], rules: list[tuple[int, int]]) -> bool:

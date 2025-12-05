@@ -1,5 +1,5 @@
-from puzzles.day_18.load_inputs import input_reader, InputType
-from puzzles.day_18.solution_part_1 import calculate_solution as solution_part_1
+from archive.y2024.puzzles.day_18.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_18.solution_part_1 import calculate_solution as solution_part_1
 from utils.common_structures.planar_map import Position
 
 

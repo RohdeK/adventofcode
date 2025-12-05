@@ -1,4 +1,4 @@
-from puzzles.day_19.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_19.load_inputs import input_reader, InputType
 
 
 NUMCACHE = {}

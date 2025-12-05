@@ -1,5 +1,5 @@
-from puzzles.day_10.load_inputs import input_reader, InputType
-from puzzles.day_10.solution_part_1 import TrailMap
+from archive.y2024.puzzles.day_10.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_10.solution_part_1 import TrailMap
 
 
 def calculate_solution(input_values: InputType) -> int:

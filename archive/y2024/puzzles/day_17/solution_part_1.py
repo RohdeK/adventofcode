@@ -1,6 +1,6 @@
 from typing import Callable
 
-from puzzles.day_17.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_17.load_inputs import input_reader, InputType
 
 
 class Computer:

@@ -1,5 +1,5 @@
-from puzzles.day_13.load_inputs import input_reader, InputType
-from puzzles.day_13.solution_part_1 import fastest_route_cost
+from archive.y2024.puzzles.day_13.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_13.solution_part_1 import fastest_route_cost
 
 
 def calculate_solution(input_values: InputType) -> int:

@@ -1,4 +1,4 @@
-from puzzles.day_15.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_15.load_inputs import input_reader, InputType
 from utils.common_structures.planar_map import Direction, Location, PlanarMap
 
 

@@ -1,4 +1,4 @@
-from puzzles.day_11.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_11.load_inputs import input_reader, InputType
 
 
 def blink_rule(val: int) -> list[int]:

@@ -1,7 +1,7 @@
 import re
 
-from puzzles.day_03.load_inputs import input_reader, InputType
-from puzzles.day_03.solution_part_1 import calculate_solution as calculate_solution_1
+from archive.y2024.puzzles.day_03.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_03.solution_part_1 import calculate_solution as calculate_solution_1
 
 
 def calculate_solution(input_values: InputType) -> int:

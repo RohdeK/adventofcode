@@ -1,5 +1,5 @@
-from puzzles.day_01.load_inputs import input_reader
-from puzzles.day_01.solution_part_2 import calculate_solution
+from archive.y2024.puzzles.day_01.load_inputs import input_reader
+from archive.y2024.puzzles.day_01.solution_part_2 import calculate_solution
 
 
 def test_example():

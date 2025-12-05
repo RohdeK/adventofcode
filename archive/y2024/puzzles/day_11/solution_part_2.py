@@ -1,5 +1,5 @@
-from puzzles.day_11.load_inputs import input_reader, InputType
-from puzzles.day_11.solution_part_1 import blink_rule
+from archive.y2024.puzzles.day_11.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_11.solution_part_1 import blink_rule
 
 
 def grouped_blink(values: dict[int, int]) -> dict[int, int]:

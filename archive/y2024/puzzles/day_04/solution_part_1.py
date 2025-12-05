@@ -1,4 +1,4 @@
-from puzzles.day_04.load_inputs import input_reader, InputType
+from archive.y2024.puzzles.day_04.load_inputs import input_reader, InputType
 
 
 def horizontal_search(text: str) -> int:
