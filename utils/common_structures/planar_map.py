@@ -26,6 +26,9 @@ class Location(Located):
     def __repr__(self):
         return f"({self.row}, {self.col})[{self.type}]"
 
+    def __hash__(self):
+        return hash(self.position())
+
     def copy(self) -> "Location":
         return Location(
             row=self.row,
